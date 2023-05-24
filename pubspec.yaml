@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider:
   google_fonts:
+  device_preview:
+  im_stepper:
   flutter_spinkit:
 
 dev_dependencies:

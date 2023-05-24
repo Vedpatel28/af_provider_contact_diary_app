@@ -1,4 +1,5 @@
 import 'package:af_provider_contact_diary_app/controllers/stepper_controller.dart';
+import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +24,7 @@ class home_page extends StatelessWidget {
           },
           steps: <Step>[
             Step(
+              isActive: true,
               title: const Text("ved"),
               content: SizedBox(
                 height: s.height * 0.02,
@@ -31,6 +33,7 @@ class home_page extends StatelessWidget {
               ),
             ),
             Step(
+              isActive: true,
               title: const Text("Samir"),
               content: SizedBox(
                 height: s.height * 0.02,
@@ -39,6 +42,7 @@ class home_page extends StatelessWidget {
               ),
             ),
             Step(
+              isActive: true,
               title: const Text("HK"),
               content: SizedBox(
                 height: s.height * 0.02,
