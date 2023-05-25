@@ -7,13 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  Provider.debugCheckInvalidValueType = null;
-
   runApp(
     MultiProvider(
       providers: [
-        Provider(
+        ListenableProvider(
           create: (context) => MyStepper(),
+        ),
+        ListenableProvider(
+          create: (context) => Themechanger(),
         ),
       ],
       // child: DevicePreview(
@@ -32,8 +33,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // dark Theme Mode Code
-
       theme: ThemeData(
         useMaterial3: true,
         appBarTheme: AppBarTheme(
@@ -64,7 +63,13 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+        ),
       ),
+
+      themeMode: Provider.of<Themechanger>(context).themechange ? ThemeMode.dark : ThemeMode.light,
+
       routes: {
         allroutes.homepage: (context) => const home_page(),
       },

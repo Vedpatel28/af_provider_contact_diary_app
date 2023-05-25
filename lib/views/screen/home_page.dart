@@ -14,43 +14,51 @@ class home_page extends StatelessWidget {
         title: const Text(
           "Home Page",
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Provider.of<Themechanger>(context, listen: false).changetheme();
+            },
+            icon: Icon(
+              Provider.of<Themechanger>(context).themechange ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Stepper(
-          currentStep: Provider.of<MyStepper>(context).steppercounte,
-          onStepContinue: () {
-            Provider.of<MyStepper>(context).stepperup();
-          },
-          steps: <Step>[
-            Step(
-              isActive: true,
-              title: const Text("ved"),
-              content: SizedBox(
-                height: s.height * 0.02,
-                width: s.width * 0.05,
-                child: const Text("All"),
+        child: Consumer<MyStepper>(
+          builder: (context, provider, widget) => Stepper(
+            currentStep: provider.steppercounte,
+            onStepContinue: () {
+              provider.stepperup();
+            },
+            onStepCancel: () {
+              provider.stepperdoun();
+            },
+            steps: <Step>[
+              Step(
+                isActive: true,
+                title: const Text("Add Image"),
+                content: Container(),
               ),
-            ),
-            Step(
-              isActive: true,
-              title: const Text("Samir"),
-              content: SizedBox(
-                height: s.height * 0.02,
-                width: s.width * 0.02,
-                child: const Text("All"),
+              Step(
+                isActive: true,
+                title: const Text("Name"),
+                content: Container(),
               ),
-            ),
-            Step(
-              isActive: true,
-              title: const Text("HK"),
-              content: SizedBox(
-                height: s.height * 0.02,
-                width: s.width * 0.02,
-                child: const Text("All"),
+              Step(
+                isActive: true,
+                title: const Text("Contact"),
+                content: Container(),
               ),
-            ),
-          ],
+              Step(
+                isActive: true,
+                title: const Text("E-mail"),
+                content: Container(),
+              ),
+            ],
+          ),
         ),
       ),
     );
