@@ -38,6 +38,8 @@ dependencies:
   provider:
   google_fonts:
   device_preview:
+  image_picker:
+  easy_stepper:
   im_stepper:
   flutter_spinkit:
 
