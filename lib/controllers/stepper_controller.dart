@@ -4,21 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyStepper extends ChangeNotifier {
-  String? name;
-  int? contact;
-  String? email;
-  File? image;
+  static String? name;
+  static int? contact;
+  static String? email;
+  static File? image;
+
+  static List allcontct = [];
 
   int steppercounte = 0;
-
-  List allcontct = [];
-
-  // MyStepper({
-  //   required this.name,
-  //   required this.email,
-  //   required this.image,
-  //   required this.contact,
-  // });
 
   stepperup() {
     if (steppercounte < 3) {
@@ -53,15 +46,6 @@ class MyStepper extends ChangeNotifier {
 
   imageset({required File img}) {
     image = img;
-    notifyListeners();
-  }
-}
-
-class Themechanger extends ChangeNotifier {
-  bool themechange = false;
-
-  changetheme() {
-    themechange = !themechange;
     notifyListeners();
   }
 }

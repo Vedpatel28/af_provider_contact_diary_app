@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:af_provider_contact_diary_app/controllers/stepper_controller.dart';
+import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
+import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:af_provider_contact_diary_app/views/components/all_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -64,8 +66,8 @@ class add_contact_page extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               radius: 60,
-                              foregroundImage: provider.image != null
-                                  ? FileImage(provider.image!)
+                              foregroundImage:  MyStepper.image != null
+                                  ? FileImage(MyStepper.image!)
                                   : null,
                               child: const Text("Add"),
                             ),
@@ -122,8 +124,20 @@ class add_contact_page extends StatelessWidget {
                         content: Stack(
                           children: [
                             TextFormField(
+                              // textInputAction: TextInputAction.next,
+                              // initialValue: allGlobalvar.Lname,
+                              // validator: (value) {
+                              //   if (value!.isEmpty) {
+                              //     return "Enter Last name";
+                              //   } else {
+                              //     return null;
+                              //   }
+                              // },
+                              // onSaved: (newValue) {
+                              //   allGlobalvar.Lname = newValue;
+                              // },
                               textInputAction: TextInputAction.next,
-                              initialValue: provider.name,
+                              initialValue: MyStepper.name,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter Name";
@@ -132,11 +146,12 @@ class add_contact_page extends StatelessWidget {
                                 }
                               },
                               onSaved: (newValue) {
-                                provider.name == newValue;
+                                MyStepper.name == newValue;
                               },
                               decoration: const InputDecoration(
                                 hintText: "Enter Name",
                                 border: UnderlineInputBorder(),
+                                errorBorder: OutlineInputBorder(),
                               ),
                             ),
                           ],
@@ -151,9 +166,9 @@ class add_contact_page extends StatelessWidget {
                             TextFormField(
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.number,
-                              initialValue: (provider.contact == null)
+                              initialValue: (MyStepper.contact == null)
                                   ? null
-                                  : provider.contact.toString(),
+                                  : MyStepper.contact.toString(),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter Contact";
@@ -164,11 +179,12 @@ class add_contact_page extends StatelessWidget {
                                 }
                               },
                               onSaved: (newValue) {
-                                provider.contact == newValue;
+                                MyStepper.contact == newValue;
                               },
                               decoration: const InputDecoration(
                                 hintText: "Enter Contact",
                                 border: UnderlineInputBorder(),
+                                errorBorder: OutlineInputBorder(),
                               ),
                             ),
                           ],
@@ -182,7 +198,7 @@ class add_contact_page extends StatelessWidget {
                           children: [
                             TextFormField(
                               textInputAction: TextInputAction.next,
-                              initialValue: provider.email,
+                              initialValue: MyStepper.email,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter Email";
@@ -191,19 +207,15 @@ class add_contact_page extends StatelessWidget {
                                 }
                               },
                               onSaved: (newValue) {
-                                provider.email == newValue;
+                                MyStepper.email == newValue;
                               },
                               onFieldSubmitted: (value) {
                                 if (formkey.currentState!.validate()) {
                                   formkey.currentState!.save();
-                                  // provider.allcontct.add(
-                                    // MyStepper(
-                                    //   name: provider.name!,
-                                    //   email: provider.email!,
-                                    //   image: provider.image!,
-                                    //   contact: provider.contact!,
-                                    // ),
-                                  // );
+                                  MyStepper.allcontct.add(MyStepper.name);
+                                  MyStepper.allcontct.add(MyStepper.email);
+                                  MyStepper.allcontct.add(MyStepper.contact);
+                                  MyStepper.allcontct.add(MyStepper.image);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text(
@@ -212,7 +224,21 @@ class add_contact_page extends StatelessWidget {
                                       ),
                                     ),
                                   );
-                                  Navigator.of(context).pop();
+                                  // ScaffoldMessenger.of(context)
+                                  //     .showMaterialBanner(
+                                  //   MaterialBanner(
+                                  //     content: Container(height: 250),
+                                  //     actions: [
+                                  //       Text("Name : ${provider.allcontct[0]}"),
+                                  //       Text(
+                                  //           "E-mail : ${provider.allcontct[1]}"),
+                                  //       Text(
+                                  //           "Contact : ${provider.allcontct[2]}"),
+                                  //     ],
+                                  //   ),
+                                  // );
+                                  Navigator.of(context)
+                                      .pushNamed(allroutes.showpage);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -225,6 +251,7 @@ class add_contact_page extends StatelessWidget {
                               decoration: const InputDecoration(
                                 hintText: "Enter E-mail",
                                 border: UnderlineInputBorder(),
+                                errorBorder: OutlineInputBorder(),
                               ),
                             ),
                           ],
