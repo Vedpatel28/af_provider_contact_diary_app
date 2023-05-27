@@ -4,7 +4,6 @@ import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:af_provider_contact_diary_app/views/screen/add_contact_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/home_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/show_contact_page.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

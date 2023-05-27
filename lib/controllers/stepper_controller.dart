@@ -1,15 +1,12 @@
 import 'dart:io';
 
+import 'package:af_provider_contact_diary_app/views/modals/global_varibles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyStepper extends ChangeNotifier {
-  static String? name;
-  static int? contact;
-  static String? email;
-  static File? image;
 
-  static List allcontct = [];
+  File? image;
 
   int steppercounte = 0;
 
@@ -27,7 +24,7 @@ class MyStepper extends ChangeNotifier {
     notifyListeners();
   }
 
-  steptepped({required int index}) {
+  void steptepped({required int index}) {
     steppercounte == index;
     notifyListeners();
   }
@@ -45,7 +42,13 @@ class MyStepper extends ChangeNotifier {
   }
 
   imageset({required File img}) {
-    image = img;
+    allglobalvar.image = img;
     notifyListeners();
   }
+
+  aftervalidat (){
+    steppercounte ++;
+    notifyListeners();
+  }
+
 }
