@@ -37,10 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider:
   google_fonts:
+  shared_preferences:
   device_preview:
   image_picker:
   easy_stepper:
   im_stepper:
+  slide_to_act:
   flutter_spinkit:
 
 dev_dependencies:

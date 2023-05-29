@@ -1,8 +1,10 @@
+import 'package:af_provider_contact_diary_app/controllers/intro_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/stepper_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:af_provider_contact_diary_app/views/screen/add_contact_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/home_page.dart';
+import 'package:af_provider_contact_diary_app/views/screen/intro_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/show_contact_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +19,9 @@ void main() {
         ),
         ListenableProvider(
           create: (context) => Themechanger(),
+        ),
+        ListenableProvider(
+          create: (context) => IntroProvider(),
         ),
       ],
       // child: DevicePreview(
@@ -93,10 +98,15 @@ class MyApp extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
 
+      initialRoute: Provider.of<IntroProvider>(context).checkFirstTime()
+          ? allroutes.IntroPage
+          : allroutes.homepage,
+      // initialRoute: allroutes.IntroPage,
       routes: {
         allroutes.homepage: (context) => const home_page(),
         allroutes.AddContactPage: (context) => add_contact_page(),
         allroutes.showpage: (context) => const showpage(),
+        allroutes.IntroPage: (context) => const intro_page(),
       },
     );
   }

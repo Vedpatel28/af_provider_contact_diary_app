@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyStepper extends ChangeNotifier {
-
   File? image;
 
   int steppercounte = 0;
@@ -46,9 +45,13 @@ class MyStepper extends ChangeNotifier {
     notifyListeners();
   }
 
-  aftervalidat (){
-    steppercounte ++;
+  aftervalidat() {
+    steppercounte++;
     notifyListeners();
   }
 
+  laststepdecrease() {
+    steppercounte == 1;
+    notifyListeners();
+  }
 }
