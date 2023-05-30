@@ -35,9 +35,7 @@ class add_contact_page extends StatelessWidget {
             },
             icon: Icon(
               size: 25,
-              Provider.of<Themechanger>(context).themechange
-                  ? Icons.light_mode_outlined
-                  : Icons.dark_mode_outlined,
+              Provider.of<Themechanger>(context).themechange ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
             ),
           ),
           const Icon(Icons.add, color: Colors.transparent),
@@ -70,9 +68,7 @@ class add_contact_page extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 60,
-                        foregroundImage: allglobalvar.image != null
-                            ? FileImage(allglobalvar.image!)
-                            : null,
+                        foregroundImage: allglobalvar.image != null ? FileImage(allglobalvar.image!) : null,
                         child: const Text("Add"),
                       ),
                       FloatingActionButton.small(
@@ -85,8 +81,7 @@ class add_contact_page extends StatelessWidget {
                                 ElevatedButton(
                                   onPressed: () async {
                                     ImagePicker picker = ImagePicker();
-                                    XFile? img = await picker.pickImage(
-                                        source: ImageSource.camera);
+                                    XFile? img = await picker.pickImage(source: ImageSource.camera);
 
                                     if (img != null) {
                                       provider.imageset(img: File(img.path));
@@ -99,8 +94,7 @@ class add_contact_page extends StatelessWidget {
                                 ElevatedButton(
                                   onPressed: () async {
                                     ImagePicker picker = ImagePicker();
-                                    XFile? img = await picker.pickImage(
-                                        source: ImageSource.gallery);
+                                    XFile? img = await picker.pickImage(source: ImageSource.gallery);
 
                                     if (img != null) {
                                       provider.imageset(img: File(img.path));
@@ -145,7 +139,7 @@ class add_contact_page extends StatelessWidget {
                               },
                               onSaved: (newValue) {
                                 allglobalvar.name = newValue;
-                                provider.aftervalidat();
+                                // provider.aftervalidat();
                               },
                               // onFieldSubmitted: (value) {
                               //   if (formkey[0].currentState!.validate()) {
@@ -197,9 +191,7 @@ class add_contact_page extends StatelessWidget {
                               maxLength: 10,
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.number,
-                              initialValue: (allglobalvar.contact == null)
-                                  ? null
-                                  : allglobalvar.contact.toString(),
+                              initialValue: (allglobalvar.contact == null) ? null : allglobalvar.contact.toString(),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter Contect Number";
@@ -211,7 +203,7 @@ class add_contact_page extends StatelessWidget {
                               },
                               onSaved: (newValue) {
                                 allglobalvar.contact = newValue;
-                                provider.aftervalidat();
+                                // provider.aftervalidat();
                               },
                               // onFieldSubmitted: (value) {
                               //   if (formkey[1].currentState!.validate()) {
@@ -289,7 +281,7 @@ class add_contact_page extends StatelessWidget {
                                       content: Text("Suceessful"),
                                     ),
                                   );
-                                  provider.laststepdecrease();
+                                  // provider.laststepdecrease();
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -297,8 +289,7 @@ class add_contact_page extends StatelessWidget {
                                     ),
                                   );
                                 }
-                                Navigator.of(context)
-                                    .pushNamed(allroutes.showpage);
+                                Navigator.of(context).pushNamed(allroutes.showpage);
                               },
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),

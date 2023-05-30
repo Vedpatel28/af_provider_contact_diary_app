@@ -1,4 +1,5 @@
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
+import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:af_provider_contact_diary_app/views/components/all_back_button.dart';
 import 'package:af_provider_contact_diary_app/views/modals/global_varibles.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,7 @@ class showpage extends StatelessWidget {
             },
             icon: Icon(
               size: 25,
-              Provider.of<Themechanger>(context).themechange
-                  ? Icons.light_mode_outlined
-                  : Icons.dark_mode_outlined,
+              Provider.of<Themechanger>(context).themechange ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
             ),
           ),
           const Icon(Icons.add, color: Colors.transparent),
@@ -45,15 +44,13 @@ class showpage extends StatelessWidget {
                   flex: 5,
                   child: GestureDetector(
                     onTap: () {
-                      // Navigator.of(context)
-                      //     .pushNamed(allroutes.condetailpage, arguments: index);
+                      Navigator.of(context).pushNamed(allroutes.homepage, arguments: index);
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.primaries[index % 18].shade100,
                         image: DecorationImage(
-                          image:
-                              FileImage(allglobalvar.ListOfContact[index].trimage!),
+                          image: FileImage(allglobalvar.ListOfContact[index].trimage!),
                           fit: BoxFit.cover,
                         ),
                       ),

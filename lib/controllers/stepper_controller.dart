@@ -11,14 +11,14 @@ class MyStepper extends ChangeNotifier {
 
   stepperup() {
     if (steppercounte < 3) {
-      steppercounte++;
+      ++steppercounte;
     }
     notifyListeners();
   }
 
   stepperdoun() {
     if (steppercounte > 0) {
-      steppercounte--;
+      --steppercounte;
     }
     notifyListeners();
   }
@@ -50,8 +50,8 @@ class MyStepper extends ChangeNotifier {
     notifyListeners();
   }
 
-  laststepdecrease() {
-    steppercounte == 1;
-    notifyListeners();
-  }
+  // laststepdecrease() {
+  //   steppercounte == 0;
+  //   notifyListeners();
+  // }
 }

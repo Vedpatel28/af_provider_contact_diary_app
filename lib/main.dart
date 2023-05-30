@@ -94,13 +94,11 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      themeMode: Provider.of<Themechanger>(context).themechange
-          ? ThemeMode.dark
-          : ThemeMode.light,
+      themeMode: Provider.of<Themechanger>(context).themechange ? ThemeMode.dark : ThemeMode.light,
 
-      initialRoute: Provider.of<IntroProvider>(context).checkFirstTime()
-          ? allroutes.IntroPage
-          : allroutes.homepage,
+      // initialRoute: Provider.of<IntroProvider>(context).checkFirstTime()
+      //     ? allroutes.IntroPage
+      //     : allroutes.homepage,
       // initialRoute: allroutes.IntroPage,
       routes: {
         allroutes.homepage: (context) => const home_page(),
