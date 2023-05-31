@@ -4,4 +4,5 @@ class allroutes {
   static String showpage = 'showpage';
   static String Detiail = 'detiail';
   static String IntroPage = 'intropage';
+  static String HiddenContactPage = 'hiddencontactpage';
 }
