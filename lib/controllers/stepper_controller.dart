@@ -9,6 +9,13 @@ class MyStepper extends ChangeNotifier {
 
   int steppercounte = 0;
 
+  bool Hiddentrue = false;
+
+  void hide() {
+    Hiddentrue = !Hiddentrue;
+    notifyListeners();
+  }
+
   stepperup() {
     if (steppercounte < 3) {
       ++steppercounte;
@@ -50,8 +57,8 @@ class MyStepper extends ChangeNotifier {
     notifyListeners();
   }
 
-  // laststepdecrease() {
-  //   steppercounte == 0;
-  //   notifyListeners();
-  // }
+// laststepdecrease() {
+//   steppercounte == 0;
+//   notifyListeners();
+// }
 }
