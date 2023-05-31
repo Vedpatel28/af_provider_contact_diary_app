@@ -3,6 +3,7 @@ import 'package:af_provider_contact_diary_app/controllers/stepper_controller.dar
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:af_provider_contact_diary_app/views/screen/add_contact_page.dart';
+import 'package:af_provider_contact_diary_app/views/screen/contact_detail_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/home_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/intro_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/show_contact_page.dart';
@@ -104,6 +105,7 @@ class MyApp extends StatelessWidget {
         allroutes.homepage: (context) => const home_page(),
         allroutes.AddContactPage: (context) => add_contact_page(),
         allroutes.showpage: (context) => const showpage(),
+        allroutes.Detiail: (context) => const detail_contact(),
         allroutes.IntroPage: (context) => const intro_page(),
       },
     );

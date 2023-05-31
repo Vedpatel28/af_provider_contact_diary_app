@@ -44,7 +44,7 @@ class showpage extends StatelessWidget {
                   flex: 5,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(allroutes.homepage, arguments: index);
+                      Navigator.of(context).pushNamed(allroutes.Detiail, arguments: index);
                     },
                     child: Container(
                       decoration: BoxDecoration(
