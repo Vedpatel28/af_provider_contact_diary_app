@@ -17,7 +17,7 @@ class intro_page extends StatelessWidget {
     // }
 
     if (!Provider.of<IntroProvider>(context).checkFirstTime()) {
-      Timer.periodic(const Duration(seconds: 10), (timer) {
+      Timer.periodic(const Duration(seconds: 3), (timer) {
         Navigator.of(context).pushNamed(allroutes.homepage);
         timer.cancel();
       });
@@ -41,8 +41,7 @@ class intro_page extends StatelessWidget {
               child: SizedBox(
                 child: SlideAction(
                   onSubmit: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(allroutes.homepage);
+                    Navigator.of(context).pushReplacementNamed(allroutes.homepage);
                   },
                 ),
               ),
