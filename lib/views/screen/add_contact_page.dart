@@ -15,10 +15,10 @@ import 'package:provider/provider.dart';
 class add_contact_page extends StatelessWidget {
   add_contact_page({Key? key}) : super(key: key);
 
-  // String? _number;
-  // String? _name;
-  // String? _email;
-  // String? _image;
+  String? _number;
+  String? _name;
+  String? _email;
+  String? _image;
 
   List<GlobalKey<FormState>> formkey = [
     GlobalKey<FormState>(),
@@ -282,10 +282,7 @@ class add_contact_page extends StatelessWidget {
 
                                 // ignore: use_build_context_synchronously
                                 File nImage = await Provider.of<MyStepper>(
-                                        context)
-                                    .image!
-                                    .copy(
-                                        "${dir!.path}/${allglobalvar.contact}.jpg");
+                                        context).image!.copy("${dir!.path}/$_number.jpg");
 
                                 // ignore: use_build_context_synchronously
                                 if (Provider.of<MyStepper>(context,
@@ -295,9 +292,9 @@ class add_contact_page extends StatelessWidget {
                                   Provider.of<ListController>(context,
                                           listen: false)
                                       .addHiddenContact(
-                                    name: allglobalvar.name!,
-                                    number: allglobalvar.contact!,
-                                    email: allglobalvar.email!,
+                                    name: _name!,
+                                    number: _number!,
+                                    email: _email!,
                                     imagePath: nImage.path,
                                   );
                                   // ignore: use_build_context_synchronously
