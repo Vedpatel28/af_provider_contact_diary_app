@@ -12,12 +12,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class add_contact_page extends StatelessWidget {
   add_contact_page({Key? key}) : super(key: key);
 
-  String? _number;
-  String? _name;
-  String? _email;
+  // String? _number;
+  // String? _name;
+  // String? _email;
   String? _image;
 
   List<GlobalKey<FormState>> formkey = [
@@ -42,12 +43,40 @@ class add_contact_page extends StatelessWidget {
             },
             icon: Icon(
               size: 25,
-              Provider.of<Themechanger>(context).themechange
-                  ? Icons.light_mode_outlined
-                  : Icons.dark_mode_outlined,
+              Provider.of<Themechanger>(context).themechange ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
             ),
           ),
-          const Icon(Icons.add, color: Colors.transparent),
+          IconButton(
+            onPressed: () {
+              if (formkey[2].currentState!.validate() && formkey[1].currentState!.validate() && formkey[0].currentState!.validate()) {
+                formkey[2].currentState!.save();
+                formkey[1].currentState!.save();
+                formkey[0].currentState!.save();
+                allglobalvar.ListOfContact.add(
+                  AllContact(
+                    trname: allglobalvar.name,
+                    trcontact: allglobalvar.contact,
+                    trimage: allglobalvar.image,
+                    tremail: allglobalvar.email,
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Suceessful"),
+                  ),
+                );
+                // provider.laststepdecrease();
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Error"),
+                  ),
+                );
+              }
+              Navigator.of(context).pushNamed(allroutes.showpage);
+            },
+            icon: const Icon(Icons.check),
+          ),
         ],
       ),
       body: Padding(
@@ -77,9 +106,7 @@ class add_contact_page extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 60,
-                        foregroundImage: allglobalvar.image != null
-                            ? FileImage(allglobalvar.image!)
-                            : null,
+                        foregroundImage: allglobalvar.image != null ? FileImage(allglobalvar.image!) : null,
                         child: const Text("Add"),
                       ),
                       FloatingActionButton.small(
@@ -92,8 +119,7 @@ class add_contact_page extends StatelessWidget {
                                 ElevatedButton(
                                   onPressed: () async {
                                     ImagePicker picker = ImagePicker();
-                                    XFile? img = await picker.pickImage(
-                                        source: ImageSource.camera);
+                                    XFile? img = await picker.pickImage(source: ImageSource.camera);
 
                                     if (img != null) {
                                       provider.imageset(img: File(img.path));
@@ -106,8 +132,7 @@ class add_contact_page extends StatelessWidget {
                                 ElevatedButton(
                                   onPressed: () async {
                                     ImagePicker picker = ImagePicker();
-                                    XFile? img = await picker.pickImage(
-                                        source: ImageSource.gallery);
+                                    XFile? img = await picker.pickImage(source: ImageSource.gallery);
 
                                     if (img != null) {
                                       provider.imageset(img: File(img.path));
@@ -204,9 +229,7 @@ class add_contact_page extends StatelessWidget {
                               maxLength: 10,
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.number,
-                              initialValue: (allglobalvar.contact == null)
-                                  ? null
-                                  : allglobalvar.contact.toString(),
+                              initialValue: (allglobalvar.contact == null) ? null : allglobalvar.contact.toString(),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter Contect Number";
@@ -277,24 +300,18 @@ class add_contact_page extends StatelessWidget {
                                 allglobalvar.email = newValue;
                               },
                               onTap: () async {
-                                Directory? dir =
-                                    await getExternalStorageDirectory();
+                                Directory? dir = await getExternalStorageDirectory();
 
                                 // ignore: use_build_context_synchronously
-                                File nImage = await Provider.of<MyStepper>(
-                                        context).image!.copy("${dir!.path}/$_number.jpg");
+                                File nImage = await provider.image!.copy("${dir!.path}/${allglobalvar.contact}.jpg");
 
                                 // ignore: use_build_context_synchronously
-                                if (Provider.of<MyStepper>(context,
-                                        listen: false)
-                                    .Hiddentrue) {
+                                if (provider.Hiddentrue) {
                                   // ignore: use_build_context_synchronously
-                                  Provider.of<ListController>(context,
-                                          listen: false)
-                                      .addHiddenContact(
-                                    name: _name!,
-                                    number: _number!,
-                                    email: _email!,
+                                  Provider.of<ListController>(context, listen: false).addHiddenContact(
+                                    name: allglobalvar.name!,
+                                    number: allglobalvar.contact!,
+                                    email: allglobalvar.email!,
                                     imagePath: nImage.path,
                                   );
                                   // ignore: use_build_context_synchronously
@@ -310,37 +327,36 @@ class add_contact_page extends StatelessWidget {
                                   Navigator.of(context).pop();
                                 }
                               },
-                              onFieldSubmitted: (value) {
-                                if (formkey[2].currentState!.validate() &&
-                                    formkey[1].currentState!.validate() &&
-                                    formkey[0].currentState!.validate()) {
-                                  formkey[2].currentState!.save();
-                                  formkey[1].currentState!.save();
-                                  formkey[0].currentState!.save();
-                                  allglobalvar.ListOfContact.add(
-                                    AllContact(
-                                      trname: allglobalvar.name,
-                                      trcontact: allglobalvar.contact,
-                                      trimage: allglobalvar.image,
-                                      tremail: allglobalvar.email,
-                                    ),
-                                  );
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Suceessful"),
-                                    ),
-                                  );
-                                  // provider.laststepdecrease();
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Error"),
-                                    ),
-                                  );
-                                }
-                                Navigator.of(context)
-                                    .pushNamed(allroutes.showpage);
-                              },
+                              // onFieldSubmitted: (value) {
+                              //   if (formkey[2].currentState!.validate() &&
+                              //       formkey[1].currentState!.validate() &&
+                              //       formkey[0].currentState!.validate()) {
+                              //     formkey[2].currentState!.save();
+                              //     formkey[1].currentState!.save();
+                              //     formkey[0].currentState!.save();
+                              //     allglobalvar.ListOfContact.add(
+                              //       AllContact(
+                              //         trname: allglobalvar.name,
+                              //         trcontact: allglobalvar.contact,
+                              //         trimage: allglobalvar.image,
+                              //         tremail: allglobalvar.email,
+                              //       ),
+                              //     );
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //       const SnackBar(
+                              //         content: Text("Suceessful"),
+                              //       ),
+                              //     );
+                              //     // provider.laststepdecrease();
+                              //   } else {
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //       const SnackBar(
+                              //         content: Text("Error"),
+                              //       ),
+                              //     );
+                              //   }
+                              //   Navigator.of(context).pushNamed(allroutes.showpage);
+                              // },
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: "E-Mail",
@@ -353,6 +369,17 @@ class add_contact_page extends StatelessWidget {
                     ],
                   ),
                   isActive: provider.isActiveannabelle(index: 3),
+                ),
+                Step(
+                  isActive: provider.isActiveannabelle(index: 4),
+                  title: const Text("Hidden"),
+                  content: CheckboxListTile(
+                    title: const Text("If You Hidde Contact Press This"),
+                    value: provider.Hiddentrue,
+                    onChanged: (value) {
+                      provider.hide();
+                    },
+                  ),
                 ),
               ],
             ),

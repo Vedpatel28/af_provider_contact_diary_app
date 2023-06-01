@@ -10,17 +10,19 @@ class intro_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer.periodic(const Duration(seconds: 5), (timer) {
+    Timer.periodic(const Duration(seconds: 8), (timer) {
       Provider.of<IntroProvider>(context, listen: false).DoneIntroScreen();
       Navigator.of(context).pushReplacementNamed(allroutes.homepage);
       timer.cancel();
     });
 
-    return Scaffold(
+    return const Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(12),
         child: Column(
-          children: [],
+          children: [
+            Text("Intro Screen"),
+          ],
         ),
       ),
     );

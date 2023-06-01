@@ -53,18 +53,6 @@ class ListController extends ChangeNotifier {
         // trimage: _allimage[index],
       ),
     );
-
-    // _allname.forEach(
-    //   (element) {
-    //     allContact.add(
-    //       AllContact(
-    //         trname: element[_allname.indexOf(element)],
-    //         trcontact: element[_allcontact.indexOf(element)],
-    //         tremail: element[_allemail.indexOf(element)],
-    //       ),
-    //     );
-    //   },
-    // );
     return allContact;
   }
 
@@ -86,11 +74,7 @@ class ListController extends ChangeNotifier {
     return allhiddenContact;
   }
 
-  void addContact(
-      {required String name,
-      required String number,
-      required String imagePath,
-      required String email}) {
+  void addContact({required String name, required String number, required String imagePath, required String email}) {
     _allname = prefsob.getStringList(_sfname) ?? [];
     _allcontact = prefsob.getStringList(_sfcontact) ?? [];
     _allemail = prefsob.getStringList(_sfemail) ?? [];
@@ -107,11 +91,7 @@ class ListController extends ChangeNotifier {
     prefsob.setStringList(_sfemail, _allemail);
   }
 
-  void addHiddenContact(
-      {required String name,
-      required String number,
-      required String imagePath,
-      required String email}) {
+  void addHiddenContact({required String name, required String number, required String imagePath, required String email}) {
     _allhiddenname = prefsob.getStringList(_sfhiddenname) ?? [];
     _allhiddencontact = prefsob.getStringList(_sfhiddencontact) ?? [];
     _allhiddenemail = prefsob.getStringList(_sfhiddenemail) ?? [];
