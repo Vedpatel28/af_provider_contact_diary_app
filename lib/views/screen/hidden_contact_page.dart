@@ -8,7 +8,7 @@ class hidden_contact_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int indexold = ModalRoute.of(context)!.settings.arguments as int;
+    // int index = ModalRoute.of(context)!.settings.arguments as int;
 
     return Scaffold(
       appBar: AppBar(
@@ -26,9 +26,9 @@ class hidden_contact_page extends StatelessWidget {
             //   ),
             // ),
             title: Text(
-                "${Provider.of<ListController>(context).allhiddenContact[indexold].trname}"),
+                "${Provider.of<ListController>(context).allhiddenContact[index].trname}"),
             subtitle: Text(
-                "${Provider.of<ListController>(context).allhiddenContact[indexold].trcontact}"),
+                "${Provider.of<ListController>(context).allhiddenContact[index].trcontact}"),
           ),
         ),
       ),

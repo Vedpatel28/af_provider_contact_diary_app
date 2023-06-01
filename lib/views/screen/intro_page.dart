@@ -16,12 +16,19 @@ class intro_page extends StatelessWidget {
       timer.cancel();
     });
 
-    return const Scaffold(
+    return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
-          children: [
-            Text("Intro Screen"),
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            Text(
+              "Intro Screen",
+              style: TextStyle(
+                fontSize: 30,
+              ),
+            ),
           ],
         ),
       ),

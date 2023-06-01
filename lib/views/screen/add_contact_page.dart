@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/stepper_controller.dart';
@@ -16,16 +18,13 @@ import 'package:provider/provider.dart';
 class add_contact_page extends StatelessWidget {
   add_contact_page({Key? key}) : super(key: key);
 
-  // String? _number;
-  // String? _name;
-  // String? _email;
-  String? _image;
+  String? _number;
+  String? _name;
+  String? _email;
 
-  List<GlobalKey<FormState>> formkey = [
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-  ];
+  // String? _image;
+
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,21 +42,47 @@ class add_contact_page extends StatelessWidget {
             },
             icon: Icon(
               size: 25,
-              Provider.of<Themechanger>(context).themechange ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+              Provider.of<Themechanger>(context).themechange
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined,
             ),
           ),
           IconButton(
-            onPressed: () {
-              if (formkey[2].currentState!.validate() && formkey[1].currentState!.validate() && formkey[0].currentState!.validate()) {
-                formkey[2].currentState!.save();
-                formkey[1].currentState!.save();
-                formkey[0].currentState!.save();
+            onPressed: () async {
+              Directory? dir = await getExternalStorageDirectory();
+
+              // ignore: duplicate_ignore
+              File nImage = await Provider.of<MyStepper>(context, listen: false)
+                  .image!
+                  .copy("${dir!.path}/$_name.jpg");
+
+              if (Provider.of<MyStepper>(context, listen: false).Hiddentrue) {
+                Provider.of<ListController>(context, listen: false)
+                    .addHiddenContact(
+                  name: _name!,
+                  number: _number!,
+                  imagePath: nImage.path,
+                  email: _email!,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Contact added"),
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                // Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(allroutes.showpage);
+              }
+
+              if (formkey.currentState!.validate()) {
+                formkey.currentState!.save();
                 allglobalvar.ListOfContact.add(
                   AllContact(
-                    trname: allglobalvar.name,
-                    trcontact: allglobalvar.contact,
-                    trimage: allglobalvar.image,
-                    tremail: allglobalvar.email,
+                    trname: _name,
+                    trcontact: _number,
+                    tremail: _email,
                   ),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -73,6 +98,7 @@ class add_contact_page extends StatelessWidget {
                   ),
                 );
               }
+              // Navigator.of(context).pop();
               Navigator.of(context).pushNamed(allroutes.showpage);
             },
             icon: const Icon(Icons.check),
@@ -83,99 +109,102 @@ class add_contact_page extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Consumer<MyStepper>(
-            builder: (context, provider, widget) => Stepper(
-              currentStep: provider.steppercounte,
-              onStepContinue: () {
-                provider.stepperup();
-              },
-              onStepCancel: () {
-                provider.stepperdoun();
-              },
-              onStepTapped: (index) {
-                provider.steptepped(index: index);
-              },
-              steps: <Step>[
-                Step(
-                  state: provider.stepstate(index: 0),
-                  title: Text(
-                    "Add Image",
-                    style: GoogleFonts.akayaKanadaka(),
-                  ),
-                  content: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      CircleAvatar(
-                        radius: 60,
-                        foregroundImage: allglobalvar.image != null ? FileImage(allglobalvar.image!) : null,
-                        child: const Text("Add"),
-                      ),
-                      FloatingActionButton.small(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text("Chose Method"),
-                              actions: [
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    ImagePicker picker = ImagePicker();
-                                    XFile? img = await picker.pickImage(source: ImageSource.camera);
+            builder: (context, provider, widget) => Form(
+              key: formkey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Stepper(
+                currentStep: provider.steppercounte,
+                onStepContinue: () {
+                  provider.stepperup();
+                },
+                onStepCancel: () {
+                  provider.stepperdoun();
+                },
+                onStepTapped: (index) {
+                  provider.steptepped(index: index);
+                },
+                steps: <Step>[
+                  Step(
+                    state: provider.stepstate(index: 0),
+                    title: Text(
+                      "Add Image",
+                      style: GoogleFonts.akayaKanadaka(),
+                    ),
+                    content: Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        CircleAvatar(
+                          radius: 60,
+                          foregroundImage: allglobalvar.image != null
+                              ? FileImage(allglobalvar.image!)
+                              : null,
+                          child: const Text("Add"),
+                        ),
+                        FloatingActionButton.small(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text("Chose Method"),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      ImagePicker picker = ImagePicker();
+                                      XFile? img = await picker.pickImage(
+                                          source: ImageSource.camera);
 
-                                    if (img != null) {
-                                      provider.imageset(img: File(img.path));
-                                    }
-                                    // ignore: use_build_context_synchronously
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text("Camera 📷"),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    ImagePicker picker = ImagePicker();
-                                    XFile? img = await picker.pickImage(source: ImageSource.gallery);
+                                      if (img != null) {
+                                        provider.imageset(img: File(img.path));
+                                      }
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("Camera 📷"),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      ImagePicker picker = ImagePicker();
+                                      XFile? img = await picker.pickImage(
+                                          source: ImageSource.gallery);
 
-                                    if (img != null) {
-                                      provider.imageset(img: File(img.path));
-                                    }
-                                    // ignore: use_build_context_synchronously
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text("Gallery 🌌"),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        child: const Icon(Icons.add),
-                      ),
-                    ],
+                                      if (img != null) {
+                                        provider.imageset(img: File(img.path));
+                                      }
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("Gallery 🌌"),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: const Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+                    isActive: provider.isActiveannabelle(index: 0),
                   ),
-                  isActive: provider.isActiveannabelle(index: 0),
-                ),
-                Step(
-                  state: provider.stepstate(index: 1),
-                  title: Text(
-                    "Name",
-                    style: GoogleFonts.akayaKanadaka(),
-                  ),
-                  content: Stack(
-                    children: [
-                      Form(
-                        key: formkey[0],
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        child: Column(
+                  Step(
+                    state: provider.stepstate(index: 1),
+                    title: Text(
+                      "Name",
+                      style: GoogleFonts.akayaKanadaka(),
+                    ),
+                    content: Stack(
+                      children: [
+                        Column(
                           children: [
                             TextFormField(
                               textInputAction: TextInputAction.next,
                               initialValue: allglobalvar.name,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Enter First Name";
+                                  return "Enter Name";
                                 } else {
                                   return null;
                                 }
                               },
                               onSaved: (newValue) {
+                                _number = newValue;
                                 allglobalvar.name = newValue;
                                 // provider.aftervalidat();
                               },
@@ -207,29 +236,27 @@ class add_contact_page extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                    isActive: provider.isActiveannabelle(index: 1),
                   ),
-                  isActive: provider.isActiveannabelle(index: 1),
-                ),
-                Step(
-                  state: provider.stepstate(index: 2),
-                  title: Text(
-                    "Contact",
-                    style: GoogleFonts.akayaKanadaka(),
-                  ),
-                  content: Stack(
-                    children: [
-                      Form(
-                        key: formkey[1],
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        child: Column(
+                  Step(
+                    state: provider.stepstate(index: 2),
+                    title: Text(
+                      "Contact",
+                      style: GoogleFonts.akayaKanadaka(),
+                    ),
+                    content: Stack(
+                      children: [
+                        Column(
                           children: [
                             TextFormField(
                               maxLength: 10,
                               textInputAction: TextInputAction.next,
                               keyboardType: TextInputType.number,
-                              initialValue: (allglobalvar.contact == null) ? null : allglobalvar.contact.toString(),
+                              initialValue: (allglobalvar.contact == null)
+                                  ? null
+                                  : allglobalvar.contact.toString(),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter Contect Number";
@@ -240,6 +267,7 @@ class add_contact_page extends StatelessWidget {
                                 }
                               },
                               onSaved: (newValue) {
+                                _number = newValue;
                                 allglobalvar.contact = newValue;
                                 // provider.aftervalidat();
                               },
@@ -268,23 +296,19 @@ class add_contact_page extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                    isActive: provider.isActiveannabelle(index: 2),
                   ),
-                  isActive: provider.isActiveannabelle(index: 2),
-                ),
-                Step(
-                  state: provider.stepstate(index: 3),
-                  title: Text(
-                    "E-mail",
-                    style: GoogleFonts.akayaKanadaka(),
-                  ),
-                  content: Stack(
-                    children: [
-                      Form(
-                        key: formkey[2],
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        child: Column(
+                  Step(
+                    state: provider.stepstate(index: 3),
+                    title: Text(
+                      "E-mail",
+                      style: GoogleFonts.akayaKanadaka(),
+                    ),
+                    content: Stack(
+                      children: [
+                        Column(
                           children: [
                             TextFormField(
                               textInputAction: TextInputAction.next,
@@ -297,36 +321,35 @@ class add_contact_page extends StatelessWidget {
                                 }
                               },
                               onSaved: (newValue) {
+                                _email = newValue;
                                 allglobalvar.email = newValue;
                               },
-                              onTap: () async {
-                                Directory? dir = await getExternalStorageDirectory();
-
-                                // ignore: use_build_context_synchronously
-                                File nImage = await provider.image!.copy("${dir!.path}/${allglobalvar.contact}.jpg");
-
-                                // ignore: use_build_context_synchronously
-                                if (provider.Hiddentrue) {
-                                  // ignore: use_build_context_synchronously
-                                  Provider.of<ListController>(context, listen: false).addHiddenContact(
-                                    name: allglobalvar.name!,
-                                    number: allglobalvar.contact!,
-                                    email: allglobalvar.email!,
-                                    imagePath: nImage.path,
-                                  );
-                                  // ignore: use_build_context_synchronously
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Contact added"),
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: Colors.green,
-                                      duration: Duration(seconds: 2),
-                                    ),
-                                  );
-                                  // ignore: use_build_context_synchronously
-                                  Navigator.of(context).pop();
-                                }
-                              },
+                              // onTap: () {
+                              //   Directory? dir =
+                              //       await getExternalStorageDirectory();
+                              //
+                              //   File nImage = await provider.image!.copy(
+                              //       "${dir!.path}/${allglobalvar.contact}.jpg");
+                              //   if (provider.Hiddentrue) {
+                              //     Provider.of<ListController>(context,
+                              //             listen: false)
+                              //         .addHiddenContact(
+                              //       name: allglobalvar.name!,
+                              //       number: allglobalvar.contact!,
+                              //       email: allglobalvar.email!,
+                              //       imagePath: nImage.path,
+                              //     );
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //       const SnackBar(
+                              //         content: Text("Contact added"),
+                              //         behavior: SnackBarBehavior.floating,
+                              //         backgroundColor: Colors.green,
+                              //         duration: Duration(seconds: 2),
+                              //       ),
+                              //     );
+                              //     Navigator.of(context).pop();
+                              //   }
+                              // },
                               // onFieldSubmitted: (value) {
                               //   if (formkey[2].currentState!.validate() &&
                               //       formkey[1].currentState!.validate() &&
@@ -365,23 +388,24 @@ class add_contact_page extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                    isActive: provider.isActiveannabelle(index: 3),
                   ),
-                  isActive: provider.isActiveannabelle(index: 3),
-                ),
-                Step(
-                  isActive: provider.isActiveannabelle(index: 4),
-                  title: const Text("Hidden"),
-                  content: CheckboxListTile(
-                    title: const Text("If You Hidde Contact Press This"),
-                    value: provider.Hiddentrue,
-                    onChanged: (value) {
-                      provider.hide();
-                    },
+                  Step(
+                    title: const Text("Hidden"),
+                    content: CheckboxListTile(
+                      title: const Text("If You Hidde Contact Press This"),
+                      value: Provider.of<MyStepper>(context).Hiddentrue,
+                      onChanged: (value) {
+                        Provider.of<MyStepper>(context, listen: false).hide();
+                      },
+                    ),
+                    isActive: provider.isActiveannabelle(index: 4),
+                    state: provider.stepstate(index: 4),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

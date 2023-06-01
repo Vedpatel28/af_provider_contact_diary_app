@@ -32,7 +32,7 @@ void main() async {
           create: (context) => IntroProvider(prefsob: prefsob),
         ),
         ListenableProvider(
-          create: (context) => ListController(prefsob: prefsob),
+          create: (context) => ListController(prefs: prefsob),
         ),
       ],
       // child: DevicePreview(
@@ -105,7 +105,13 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      themeMode: Provider.of<Themechanger>(context).themechange ? ThemeMode.dark : ThemeMode.light,
+      themeMode: Provider.of<Themechanger>(context).themechange
+          ? ThemeMode.dark
+          : ThemeMode.light,
+
+      initialRoute: Provider.of<IntroProvider>(context).FirstTime
+          ? allroutes.IntroPage
+          : allroutes.homepage,
 
       // initialRoute: Provider.of<IntroProvider>(context).checkFirstTime()
       //     ? allroutes.IntroPage
