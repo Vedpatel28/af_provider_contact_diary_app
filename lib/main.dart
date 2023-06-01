@@ -1,4 +1,5 @@
 import 'package:af_provider_contact_diary_app/controllers/intro_controller.dart';
+import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/stepper_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
@@ -29,6 +30,9 @@ void main() async {
         ),
         ListenableProvider(
           create: (context) => IntroProvider(prefsob: prefsob),
+        ),
+        ListenableProvider(
+          create: (context) => ListController(prefsob: prefsob),
         ),
       ],
       // child: DevicePreview(

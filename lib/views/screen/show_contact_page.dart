@@ -86,40 +86,6 @@ class showpage extends StatelessWidget {
           ),
         ),
       ),
-
-      // ListView.builder(
-      //   padding: EdgeInsets.zero,
-      //   itemCount: allglobalvar.ListOfContact.length,
-      //   itemBuilder: (context, index) => Scrollbar(
-      //     child: ListTile(
-      //       leading: CircleAvatar(
-      //         radius: 50,
-      //         foregroundImage:
-      //             // FileImage(allglobalvar.ListOfContact[index].trimage!),
-      //         FileImage(allglobalvar.image!),
-      //       ),
-      //       title: Text(
-      //         "${allglobalvar.ListOfContact[index].trname} ${allglobalvar.ListOfContact[index].tremail} ",
-      //       ),
-      //       subtitle: Text(
-      //         "+91 ${allglobalvar.ListOfContact[index].trcontact}",
-      //       ),
-      //       trailing: IconButton(
-      //         onPressed: () {
-      //           Uri call = Uri(
-      //             scheme: 'tel',
-      //             path: allglobalvar.ListOfContact[index].trcontact,
-      //           );
-      //           // launchUrl(call);
-      //         },
-      //         icon: const Icon(
-      //           Icons.phone,
-      //           color: Colors.green,
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

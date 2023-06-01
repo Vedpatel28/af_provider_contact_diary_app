@@ -16,20 +16,19 @@ class hidden_contact_page extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Consumer<ListController>(
-          builder: (context, provider, child) => ListView.builder(
-            itemCount: allglobalvar.ListOfContact.length,
-            itemBuilder: (context, index) => ListTile(
-              // leading: CircleAvatar(
-              //   foregroundImage: FileImage(
-              //     // File(provider.allhiddenContact[index].imagePath),
-              //     File(provider.allhiddenContact[indexold].trimage as String),
-              //   ),
-              // ),
-              title: Text("${provider.allhiddenContact[indexold].trname}"),
-              subtitle:
-                  Text("${provider.allhiddenContact[indexold].trcontact}"),
-            ),
+        child: ListView.builder(
+          itemCount: allglobalvar.ListOfContact.length,
+          itemBuilder: (context, index) => ListTile(
+            // leading: CircleAvatar(
+            //   foregroundImage: FileImage(
+            //     // File(provider.allhiddenContact[index].imagePath),
+            //     File(provider.allhiddenContact[indexold].trimage as String),
+            //   ),
+            // ),
+            title: Text(
+                "${Provider.of<ListController>(context).allhiddenContact[indexold].trname}"),
+            subtitle: Text(
+                "${Provider.of<ListController>(context).allhiddenContact[indexold].trcontact}"),
           ),
         ),
       ),
