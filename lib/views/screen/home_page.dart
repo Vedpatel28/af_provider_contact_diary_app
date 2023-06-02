@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
@@ -87,17 +89,23 @@ class home_page extends StatelessWidget {
             leading: CircleAvatar(
               radius: 50,
               foregroundImage:
-                  FileImage(allglobalvar.ListOfContact[index].trimage!),
+                  FileImage(File(Provider.of<ListController>(context).allhiddenContact[index].trimage as String),),
             ),
             onTap: () {
               Navigator.of(context)
                   .pushNamed(allroutes.Detiail, arguments: index);
             },
+            // title: Text(
+            //   "${allglobalvar.ListOfContact[index].trname}",
+            // ),
             title: Text(
-              "${allglobalvar.ListOfContact[index].trname}",
+              "${Provider.of<ListController>(context).allhiddenContact[index].trname}",
             ),
+            // subtitle: Text(
+            //   "+91 ${allglobalvar.ListOfContact[index].trcontact}",
+            // ),
             subtitle: Text(
-              "+91 ${allglobalvar.ListOfContact[index].trcontact}",
+              "+91 ${Provider.of<ListController>(context).allhiddenContact[index].trcontact}",
             ),
             // trailing: IconButton(
             // onPressed: () {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
 import 'package:af_provider_contact_diary_app/views/modals/global_varibles.dart';
 import 'package:flutter/material.dart';
@@ -14,17 +16,18 @@ class hidden_contact_page extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Hidden Contact"),
       ),
-      body: Padding(
+      body:
+      Padding(
         padding: const EdgeInsets.all(20),
         child: Consumer<ListController>(
           builder: (context, provider, child) => ListView.builder(
             itemCount: provider.getAllHiddenContacts.length,
             itemBuilder: (context, index) => ListTile(
-              // leading: CircleAvatar(
-              //   foregroundImage: FileImage(
-              //     File(provider.allHiddenContacts[index].imagePath),
-              //   ),
-              // ),
+              leading: CircleAvatar(
+                foregroundImage: FileImage(
+                  File(provider.allhiddenContact[index].trimage as String),
+                ),
+              ),
               title: Text(provider.allhiddenContact[index].trname!),
               subtitle: Text(provider.allhiddenContact[index].trcontact!),
             ),

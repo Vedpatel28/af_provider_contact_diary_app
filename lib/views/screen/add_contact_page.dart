@@ -470,6 +470,149 @@ class add_contact_page extends StatelessWidget {
           ),
         ),
       ),
+
+      // Padding(
+      //   padding: const EdgeInsets.all(12),
+      //   child: Consumer<MyStepper>(
+      //     builder: (context, provider, child) => Stepper(
+      //       currentStep: provider.steppercounte,
+      //       onStepContinue: () {
+      //         provider.stepperup();
+      //       },
+      //       onStepCancel: () {
+      //         provider.stepperdoun();
+      //       },
+      //       onStepTapped: (index) {
+      //         provider.steptepped(index: index);
+      //       },
+      //       controlsBuilder: (context, details) {
+      //         return Padding(
+      //           padding: const EdgeInsets.only(top: 20),
+      //           child: Row(
+      //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //             children: [
+      //               ElevatedButton(
+      //                 onPressed: () {
+      //                   provider.stepperup();
+      //                 },
+      //                 child: const Text("Continue"),
+      //               ),
+      //               ElevatedButton(
+      //                 onPressed: () {
+      //                   provider.stepperdoun();
+      //                 },
+      //                 child: const Text("Back"),
+      //               ),
+      //             ],
+      //           ),
+      //         );
+      //       },
+      //       steps: <Step>[
+      //         Step(
+      //           title: const Text("Add Image"),
+      //           state: provider.stepstate(index: 0),
+      //           content: Stack(
+      //             alignment: Alignment.bottomRight,
+      //             children: [
+      //               CircleAvatar(
+      //                 radius: 60,
+      //                 foregroundImage: provider.image != null
+      //                     ? FileImage(provider.image!)
+      //                     : null,
+      //                 child: const Text("Add Image"),
+      //               ),
+      //               FloatingActionButton.small(
+      //                 onPressed: () {
+      //                   showDialog(
+      //                     context: context,
+      //                     builder: (context) => AlertDialog(
+      //                       title: const Text("Select the method"),
+      //                       actions: [
+      //                         ElevatedButton(
+      //                           onPressed: () async {
+      //                             ImagePicker picker = ImagePicker();
+      //
+      //                             XFile? img = await picker.pickImage(
+      //                                 source: ImageSource.camera);
+      //
+      //                             if (img != null) {
+      //                               provider.imageset(img: File(img.path));
+      //                             }
+      //                             Navigator.of(context).pop();
+      //                           },
+      //                           child: const Text("Camera"),
+      //                         ),
+      //                         ElevatedButton(
+      //                           onPressed: () {},
+      //                           child: const Text("Gallery"),
+      //                         ),
+      //                       ],
+      //                     ),
+      //                   );
+      //                 },
+      //                 child: const Icon(Icons.add),
+      //               ),
+      //             ],
+      //           ),
+      //           isActive: provider.isActiveannabelle(index: 0),
+      //         ),
+      //         Step(
+      //           title: const Text("Name"),
+      //           content: TextField(
+      //             onChanged: (val) {
+      //               _name = val;
+      //             },
+      //             decoration: const InputDecoration(
+      //               border: OutlineInputBorder(),
+      //             ),
+      //           ),
+      //           isActive: provider.isActiveannabelle(index: 1),
+      //           state: provider.stepstate(index: 1),
+      //         ),
+      //         Step(
+      //           title: const Text("Contact"),
+      //           content: TextField(
+      //             keyboardType: TextInputType.number,
+      //             maxLength: 10,
+      //             onChanged: (val) {
+      //               _number = val;
+      //             },
+      //             decoration: const InputDecoration(
+      //               border: OutlineInputBorder(),
+      //             ),
+      //           ),
+      //           isActive: provider.isActiveannabelle(index: 2),
+      //           state: provider.stepstate(index: 2),
+      //         ),
+      //         Step(
+      //           title: const Text("Email"),
+      //           content: TextField(
+      //             onChanged: (val) {
+      //               _email = val;
+      //             },
+      //             decoration: const InputDecoration(
+      //               border: OutlineInputBorder(),
+      //             ),
+      //           ),
+      //           isActive: provider.isActiveannabelle(index: 3),
+      //           state: provider.stepstate(index: 3),
+      //         ),
+      //         Step(
+      //           title: const Text("Status"),
+      //           content: CheckboxListTile(
+      //             title: const Text("Check to make this contact hidden"),
+      //             value: Provider.of<MyStepper>(context).Hiddentrue,
+      //             onChanged: (val) {
+      //               Provider.of<MyStepper>(context, listen: false).hide();
+      //             },
+      //           ),
+      //           isActive: provider.isActiveannabelle(index: 4),
+      //           state: provider.stepstate(index: 4),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // )
     );
   }
 }

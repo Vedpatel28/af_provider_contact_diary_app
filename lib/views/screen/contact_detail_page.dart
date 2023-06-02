@@ -15,7 +15,9 @@ class detail_contact extends StatelessWidget {
         title: const Text("Contact Detail"),
       ),
       body: Center(
-        child: Padding(
+        child:
+
+        Padding(
           padding: const EdgeInsets.all(20),
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
