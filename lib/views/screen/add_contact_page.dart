@@ -332,7 +332,7 @@ class add_contact_page extends StatelessWidget {
                                 _email = newValue;
                                 allglobalvar.email = newValue;
                                 print(
-                                    " ---=-=-=-====-=-=-  ${_number}  ,  ${_name}    -=-=-=----=-=-=-=-=-=-\n\n  ${allglobalvar.email}      ${allglobalvar.name}   -===-=-=-=-=-=-=-==-=--=-=-= \n\n -=-===-=-=-=--=-=      --=-=-=--=-=-=-=--=-=-=--=-    ");
+                                    "_number : ${_number} _name: ${_name}\n\nemail : ${allglobalvar.email} name : ${allglobalvar.name}");
                               },
                               onTap: () async {
                                 // Directory? dir =
