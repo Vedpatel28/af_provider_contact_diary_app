@@ -28,6 +28,12 @@ class add_contact_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int index =
+        Provider.of<ListController>(context, listen: false).allContact.length;
+    int indexhide = Provider.of<ListController>(context, listen: false)
+        .allhiddenContact
+        .length;
+
     // Size s = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -49,21 +55,19 @@ class add_contact_page extends StatelessWidget {
           ),
           IconButton(
             onPressed: () async {
-              Directory? dir = await getExternalStorageDirectory();
+              // Directory? dir = await getExternalStorageDirectory();
 
-              // ignore: duplicate_ignore
-              File nImage = await Provider.of<MyStepper>(context, listen: false)
-                  .image!
-                  .copy("${dir!.path}/$_name.jpg");
+              // File nImage = await Provider.of<MyStepper>(context, listen: false)
+              //     .image!
+              //     .copy("${dir!.path}/$_name.jpg");
 
               if (Provider.of<MyStepper>(context, listen: false).Hiddentrue) {
                 Provider.of<ListController>(context, listen: false)
                     .addHiddenContact(
-                  name: _name!,
-                  number: _number!,
-                  imagePath: nImage.path,
-                  email: _email!,
-                );
+                        name: _name!,
+                        number: _number!,
+                        // imagePath: nImage.path,
+                        email: _email!);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("Contact added"),
@@ -73,23 +77,29 @@ class add_contact_page extends StatelessWidget {
                   ),
                 );
                 // Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(allroutes.showpage);
-              }
-
-              if (formkey.currentState!.validate()) {
-                formkey.currentState!.save();
-                allglobalvar.ListOfContact.add(
-                  AllContact(
-                    trname: _name,
-                    trcontact: _number,
-                    tremail: _email,
-                  ),
+                Navigator.of(context).pushNamed(
+                  allroutes.HiddenContactPage,
+                  arguments: indexhide,
                 );
+              } else if (formkey.currentState!.validate()) {
+                formkey.currentState!.save();
+                Provider.of<ListController>(context, listen: false)
+                    // addHiddenContact(name: _name!, number: _number!, imagePath: nImage.path);
+                    .addContact(name: _name!, number: _number!, email: _email!);
+                //     .add(
+                //   AllContact(
+                //     trname: _name,
+                //     trcontact: _number,
+                //     tremail: _email,
+                //   ),
+                // );
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("Suceessful"),
                   ),
                 );
+                Navigator.of(context)
+                    .pushNamed(allroutes.Detiail, arguments: index);
                 // provider.laststepdecrease();
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -98,8 +108,8 @@ class add_contact_page extends StatelessWidget {
                   ),
                 );
               }
-              // Navigator.of(context).pop();
-              Navigator.of(context).pushNamed(allroutes.showpage);
+              Navigator.of(context).pop();
+              // Navigator.of(context).pushNamed(allroutes.showpage);
             },
             icon: const Icon(Icons.check),
           ),
@@ -204,15 +214,14 @@ class add_contact_page extends StatelessWidget {
                                 }
                               },
                               onSaved: (newValue) {
-                                _number = newValue;
+                                _name = newValue;
                                 allglobalvar.name = newValue;
-                                // provider.aftervalidat();
                               },
                               // onFieldSubmitted: (value) {
-                              //   if (formkey[0].currentState!.validate()) {
-                              //     formkey[0].currentState!.save();
+                              //   if (formkey.currentState!.validate()) {
+                              //     formkey.currentState!.save();
                               //     allglobalvar.ListOfContact.add(
-                              //       AllContact(),
+                              //       AllContact(trname: _name),
                               //     );
                               //     ScaffoldMessenger.of(context).showSnackBar(
                               //       const SnackBar(
@@ -269,11 +278,10 @@ class add_contact_page extends StatelessWidget {
                               onSaved: (newValue) {
                                 _number = newValue;
                                 allglobalvar.contact = newValue;
-                                // provider.aftervalidat();
                               },
                               // onFieldSubmitted: (value) {
-                              //   if (formkey[1].currentState!.validate()) {
-                              //     formkey[1].currentState!.save();
+                              //   if (formkey.currentState!.validate()) {
+                              //     formkey.currentState!.save();
                               //     ScaffoldMessenger.of(context).showSnackBar(
                               //       const SnackBar(
                               //         content: Text("Suceessful"),
@@ -323,63 +331,115 @@ class add_contact_page extends StatelessWidget {
                               onSaved: (newValue) {
                                 _email = newValue;
                                 allglobalvar.email = newValue;
+                                print(
+                                    " ---=-=-=-====-=-=-  ${_number}  ,  ${_name}    -=-=-=----=-=-=-=-=-=-\n\n  ${allglobalvar.email}      ${allglobalvar.name}   -===-=-=-=-=-=-=-==-=--=-=-= \n\n -=-===-=-=-=--=-=      --=-=-=--=-=-=-=--=-=-=--=-    ");
                               },
-                              // onTap: () {
-                              //   Directory? dir =
-                              //       await getExternalStorageDirectory();
-                              //
-                              //   File nImage = await provider.image!.copy(
-                              //       "${dir!.path}/${allglobalvar.contact}.jpg");
-                              //   if (provider.Hiddentrue) {
-                              //     Provider.of<ListController>(context,
-                              //             listen: false)
-                              //         .addHiddenContact(
-                              //       name: allglobalvar.name!,
-                              //       number: allglobalvar.contact!,
-                              //       email: allglobalvar.email!,
-                              //       imagePath: nImage.path,
-                              //     );
-                              //     ScaffoldMessenger.of(context).showSnackBar(
-                              //       const SnackBar(
-                              //         content: Text("Contact added"),
-                              //         behavior: SnackBarBehavior.floating,
-                              //         backgroundColor: Colors.green,
-                              //         duration: Duration(seconds: 2),
-                              //       ),
-                              //     );
-                              //     Navigator.of(context).pop();
-                              //   }
-                              // },
-                              // onFieldSubmitted: (value) {
-                              //   if (formkey[2].currentState!.validate() &&
-                              //       formkey[1].currentState!.validate() &&
-                              //       formkey[0].currentState!.validate()) {
-                              //     formkey[2].currentState!.save();
-                              //     formkey[1].currentState!.save();
-                              //     formkey[0].currentState!.save();
-                              //     allglobalvar.ListOfContact.add(
-                              //       AllContact(
-                              //         trname: allglobalvar.name,
-                              //         trcontact: allglobalvar.contact,
-                              //         trimage: allglobalvar.image,
-                              //         tremail: allglobalvar.email,
-                              //       ),
-                              //     );
-                              //     ScaffoldMessenger.of(context).showSnackBar(
-                              //       const SnackBar(
-                              //         content: Text("Suceessful"),
-                              //       ),
-                              //     );
-                              //     // provider.laststepdecrease();
-                              //   } else {
-                              //     ScaffoldMessenger.of(context).showSnackBar(
-                              //       const SnackBar(
-                              //         content: Text("Error"),
-                              //       ),
-                              //     );
-                              //   }
-                              //   Navigator.of(context).pushNamed(allroutes.showpage);
-                              // },
+                              onTap: () async {
+                                // Directory? dir =
+                                //     await getExternalStorageDirectory();
+                                // File nImage = await provider.image!.copy(
+                                //     "${dir!.path}/${allglobalvar.contact}.jpg");
+                                if (provider.Hiddentrue) {
+                                  Provider.of<ListController>(context)
+                                      .addHiddenContact(
+                                    name: allglobalvar.name!,
+                                    number: allglobalvar.contact!,
+                                    email: allglobalvar.email!,
+                                    // imagePath: nImage.path,
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Contact added"),
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: Colors.green,
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                  Navigator.of(context).pop();
+                                }
+                              },
+                              onFieldSubmitted: (value) {
+                                // if (Provider.of<MyStepper>(context, listen: false).Hiddentrue) {
+                                // Provider.of<ListController>(context, listen: false)
+                                //     .addHiddenContact(
+                                // name: _name!,
+                                // number: _number!,
+                                // // imagePath: nImage.path,
+                                // email: _email!);
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                // const SnackBar(
+                                // content: Text("Contact added"),
+                                // behavior: SnackBarBehavior.floating,
+                                // backgroundColor: Colors.green,
+                                // duration: Duration(seconds: 2),
+                                // ),
+                                // );
+                                // // Navigator.of(context).pop();
+                                // Navigator.of(context).pushNamed(
+                                // allroutes.HiddenContactPage,
+                                // arguments: indexhide,
+                                // );
+                                // } else if (formkey.currentState!.validate()) {
+                                // formkey.currentState!.save();
+                                // Provider.of<ListController>(context, listen: false)
+                                // // addHiddenContact(name: _name!, number: _number!, imagePath: nImage.path);
+                                //     .addContact(name: _name!, number: _number!, email: _email!);
+                                // //     .add(
+                                // //   AllContact(
+                                // //     trname: _name,
+                                // //     trcontact: _number,
+                                // //     tremail: _email,
+                                // //   ),
+                                // // );
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                // const SnackBar(
+                                // content: Text("Suceessful"),
+                                // ),
+                                // );
+                                // Navigator.of(context)
+                                //     .pushNamed(allroutes.Detiail, arguments: index);
+                                // // provider.laststepdecrease();
+                                // } else {
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                // const SnackBar(
+                                // content: Text("Error"),
+                                // ),
+                                // );
+                                // }
+                                // Navigator.of(context).pop();
+                                // // Navigator.of(context).pushNamed(allroutes.showpage);
+                                // },
+
+                                if (formkey.currentState!.validate()) {
+                                  formkey.currentState!.save();
+                                  allglobalvar.ListOfContact.add(
+                                    AllContact(
+                                      trname: _name,
+                                      trcontact: _number,
+                                      trimage: allglobalvar.image,
+                                      tremail: _email,
+                                    ),
+                                  );
+                                  Provider.of<ListController>(context,
+                                          listen: false)
+                                      .addContact(
+                                    name: _name!,
+                                    number: _number!,
+                                    email: _email!,
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Suceessful"),
+                                    ),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Error"),
+                                    ),
+                                  );
+                                }
+                              },
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: "E-Mail",

@@ -12,26 +12,43 @@ class hidden_contact_page extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hidden Contact"),
+        title: const Text("Hidden Contact"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: ListView.builder(
-          itemCount: allglobalvar.ListOfContact.length,
-          itemBuilder: (context, index) => ListTile(
-            // leading: CircleAvatar(
-            //   foregroundImage: FileImage(
-            //     // File(provider.allhiddenContact[index].imagePath),
-            //     File(provider.allhiddenContact[indexold].trimage as String),
-            //   ),
-            // ),
-            title: Text(
-                "${Provider.of<ListController>(context).allhiddenContact[index].trname}"),
-            subtitle: Text(
-                "${Provider.of<ListController>(context).allhiddenContact[index].trcontact}"),
+        child: Consumer<ListController>(
+          builder: (context, provider, child) => ListView.builder(
+            itemCount: provider.getAllHiddenContacts.length,
+            itemBuilder: (context, index) => ListTile(
+              // leading: CircleAvatar(
+              //   foregroundImage: FileImage(
+              //     File(provider.allHiddenContacts[index].imagePath),
+              //   ),
+              // ),
+              title: Text(provider.allhiddenContact[index].trname!),
+              subtitle: Text(provider.allhiddenContact[index].trcontact!),
+            ),
           ),
         ),
       ),
+      // Padding(
+      //   padding: const EdgeInsets.all(20),
+      //   child: ListView.builder(
+      //     itemCount: allglobalvar.ListOfContact.length,
+      //     itemBuilder: (context, index) => ListTile(
+      //       // leading: CircleAvatar(
+      //       //   foregroundImage: FileImage(
+      //       //     // File(provider.allhiddenContact[index].imagePath),
+      //       //     File(provider.allhiddenContact[indexold].trimage as String),
+      //       //   ),
+      //       // ),
+      //       title: Text(
+      //           "${Provider.of<ListController>(context).allhiddenContact[index].trname}"),
+      //       subtitle: Text(
+      //           "${Provider.of<ListController>(context).allhiddenContact[index].trcontact}"),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

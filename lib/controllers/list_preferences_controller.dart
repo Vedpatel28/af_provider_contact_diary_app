@@ -8,22 +8,22 @@ class ListController extends ChangeNotifier {
   final String _sfname = "all_name";
   final String _sfcontact = "all_contact";
   final String _sfemail = "all_email";
-  final String _sfimage = "all_Image";
+  // final String _sfimage = "all_Image";
 
   final String _sfhiddenname = "all_hidden_name";
   final String _sfhiddencontact = "all_hidden_contact";
   final String _sfhiddenemail = "all_hidden_email";
-  final String _sfhiddenimage = "all_hidden_Image";
+  // final String _sfhiddenimage = "all_hidden_Image";
 
   List<String> _allname = [];
   List<String> _allcontact = [];
   List<String> _allemail = [];
-  List<String> _allimage = [];
+  // List<String> _allimage = [];
 
   List<String> _allhiddenname = [];
   List<String> _allhiddencontact = [];
   List<String> _allhiddenemail = [];
-  List<String> _allhiddenimage = [];
+  // List<String> _allhiddenimage = [];
 
   List<AllContact> allContact = [];
   List<AllContact> allhiddenContact = [];
@@ -34,7 +34,10 @@ class ListController extends ChangeNotifier {
     _allname = prefs.getStringList(_sfname) ?? [];
     return _allname;
   }
-  
+
+
+
+
   List<AllContact> get getAllContact {
     _allname = prefs.getStringList(_sfname) ?? [];
     _allname = prefs.getStringList(_sfcontact) ?? [];
@@ -55,7 +58,7 @@ class ListController extends ChangeNotifier {
   List<AllContact> get getAllHiddenContacts {
     _allhiddenname = prefs.getStringList(_sfhiddenname) ?? [];
     _allcontact = prefs.getStringList(_sfhiddencontact) ?? [];
-    _allhiddenimage = prefs.getStringList(_sfhiddenimage) ?? [];
+    // _allhiddenimage = prefs.getStringList(_sfhiddenimage) ?? [];
 
     allhiddenContact = List.generate(
       _allhiddencontact.length,
@@ -76,37 +79,37 @@ class ListController extends ChangeNotifier {
     _allname = prefs.getStringList(_sfname) ?? [];
     _allcontact = prefs.getStringList(_sfcontact) ?? [];
     _allemail = prefs.getStringList(_sfemail) ?? [];
-    _allimage = prefs.getStringList(_sfimage) ?? [];
+    // _allimage = prefs.getStringList(_sfimage) ?? [];
 
     _allname.add(name);
     _allcontact.add(number);
-    // _allimage.add(imagePath);
     _allemail.add(email);
+    // _allimage.add(imagePath);
 
     prefs.setStringList(_sfname, _allname);
     prefs.setStringList(_sfcontact, _allcontact);
-    prefs.setStringList(_sfimage, _allimage);
     prefs.setStringList(_sfemail, _allemail);
+    // prefs.setStringList(_sfimage, _allimage);
   }
 
   void addHiddenContact(
       {required String name,
       required String number,
-      required String imagePath,
+      // required String imagePath,
       required String email}) {
     _allhiddenname = prefs.getStringList(_sfhiddenname) ?? [];
     _allhiddencontact = prefs.getStringList(_sfhiddencontact) ?? [];
     _allhiddenemail = prefs.getStringList(_sfhiddenemail) ?? [];
-    _allhiddenimage = prefs.getStringList(_sfhiddenimage) ?? [];
+    // _allhiddenimage = prefs.getStringList(_sfhiddenimage) ?? [];
 
     _allhiddenname.add(name);
     _allhiddencontact.add(number);
-    _allhiddenimage.add(imagePath);
+    // _allhiddenimage.add(imagePath);
     _allhiddenemail.add(email);
 
     prefs.setStringList(_sfhiddenname, _allhiddenname);
     prefs.setStringList(_sfhiddencontact, _allhiddencontact);
-    prefs.setStringList(_sfhiddenimage, _allhiddenimage);
+    // prefs.setStringList(_sfhiddenimage, _allhiddenimage);
     prefs.setStringList(_sfhiddenemail, _allhiddenemail);
   }
 
@@ -114,34 +117,37 @@ class ListController extends ChangeNotifier {
     _allname = prefs.getStringList(_sfname) ?? [];
     _allcontact = prefs.getStringList(_sfcontact) ?? [];
     _allemail = prefs.getStringList(_sfemail) ?? [];
-    _allimage = prefs.getStringList(_sfimage) ?? [];
+    // _allimage = prefs.getStringList(_sfimage) ?? [];
 
     _allname.removeAt(index);
-    _allimage.removeAt(index);
+    // _allimage.removeAt(index);
     _allcontact.removeAt(index);
     _allemail.removeAt(index);
 
     prefs.setStringList(_sfname, _allname);
     prefs.setStringList(_sfcontact, _allcontact);
-    prefs.setStringList(_sfimage, _allimage);
+    // prefs.setStringList(_sfimage, _allimage);
     prefs.setStringList(_sfemail, _allemail);
 
     notifyListeners();
   }
 
+
+
+
   void removehiddenItem({required int index}) {
     _allhiddenname = prefs.getStringList(_sfhiddenname) ?? [];
     _allhiddencontact = prefs.getStringList(_sfhiddencontact) ?? [];
     _allhiddenemail = prefs.getStringList(_sfhiddenemail) ?? [];
-    _allhiddenimage = prefs.getStringList(_sfhiddenimage) ?? [];
+    // _allhiddenimage = prefs.getStringList(_sfhiddenimage) ?? [];
 
     _allhiddenname.removeAt(index);
-    _allhiddenimage.removeAt(index);
+    // _allhiddenimage.removeAt(index);
     _allhiddencontact.removeAt(index);
     _allhiddenemail.removeAt(index);
 
     prefs.setStringList(_sfhiddenemail, _allhiddenemail);
-    prefs.setStringList(_sfhiddenimage, _allhiddenimage);
+    // prefs.setStringList(_sfhiddenimage, _allhiddenimage);
     prefs.setStringList(_sfhiddencontact, _allhiddencontact);
     prefs.setStringList(_sfhiddenname, _allhiddenname);
 
@@ -188,25 +194,7 @@ class ListController extends ChangeNotifier {
 //     _allSubTitles = prefsob.getStringList(_sfSubTitles) ?? [];
 //     return _allSubTitles;
 //   }
-//
-//   // List<Contact> get getAllContacts {
-//   //   _allTitles = prefsob.getStringList(_sfTitles) ?? [];
-//   //   _allSubTitles = prefsob.getStringList(_sfSubTitles) ?? [];
-//   //
-//   //   // _allTitles.forEach((element) {
-//   //   //   allContacts.add(Contact(title: element, subTitle: _allSubTitles[_allTitles.indexOf(element)]));
-//   //   // });
-//   //
-//   //   _allContacts = List.generate(
-//   //     _allTitles.length,
-//   //     (index) => Contact(
-//   //       title: _allTitles[index],
-//   //       subTitle: _allSubTitles[index],
-//   //     ),
-//   //   );
-//   //
-//   //   return _allContacts;
-//   // }
+// //
 //
 //   List<AllContact> get getAllHiddenContacts {
 //     _allHiddenNames = prefsob.getStringList(_sfHiddenName) ?? [];

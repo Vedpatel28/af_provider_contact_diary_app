@@ -18,20 +18,21 @@ class MyStepper extends ChangeNotifier {
 
   stepperup() {
     if (steppercounte < 4) {
-      ++steppercounte;
+      steppercounte++;
     }
     notifyListeners();
   }
 
   stepperdoun() {
     if (steppercounte > 0) {
-      --steppercounte;
+      steppercounte--;
     }
     notifyListeners();
   }
 
   void steptepped({required int index}) {
-    steppercounte == index;
+    steppercounte = index;
+    print(steppercounte);
     notifyListeners();
   }
 
@@ -53,7 +54,7 @@ class MyStepper extends ChangeNotifier {
   }
 
   aftervalidat() {
-    steppercounte++;
+    ++steppercounte;
     notifyListeners();
   }
 

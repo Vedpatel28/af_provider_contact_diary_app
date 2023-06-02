@@ -72,7 +72,7 @@ class home_page extends StatelessWidget {
                 child: const Text("Hidden Contact Pag"),
               ),
               PopupMenuItem(
-                value: allroutes.showpage,
+                value: allroutes.Detiail,
                 child: const Text("Show Contact Pag"),
               ),
             ],

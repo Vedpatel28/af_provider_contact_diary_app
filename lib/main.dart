@@ -113,12 +113,8 @@ class MyApp extends StatelessWidget {
           ? allroutes.IntroPage
           : allroutes.homepage,
 
-      // initialRoute: Provider.of<IntroProvider>(context).checkFirstTime()
-      //     ? allroutes.IntroPage
-      //     : allroutes.homepage,
-      // initialRoute: allroutes.IntroPage,
       routes: {
-        allroutes.homepage: (context) => const home_page(),
+        allroutes.homepage: (context) => home_page(),
         allroutes.AddContactPage: (context) => add_contact_page(),
         allroutes.showpage: (context) => const showpage(),
         allroutes.Detiail: (context) => const detail_contact(),
