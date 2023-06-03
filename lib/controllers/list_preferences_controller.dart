@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:af_provider_contact_diary_app/views/modals/modals_class.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,8 +33,9 @@ class ListController extends ChangeNotifier {
 
   List<AllContact> get getAllContact {
     _allname = prefs.getStringList(_sfname) ?? [];
-    _allname = prefs.getStringList(_sfcontact) ?? [];
-    _allname = prefs.getStringList(_sfemail) ?? [];
+    _allcontact = prefs.getStringList(_sfcontact) ?? [];
+    _allemail = prefs.getStringList(_sfemail) ?? [];
+    // _allimage = prefs.getStringList(_sfimage) ?? [];
 
     allContact = List.generate(
       _allcontact.length,
@@ -41,28 +43,10 @@ class ListController extends ChangeNotifier {
         trcontact: _allcontact[index],
         trname: _allname[index],
         tremail: _allemail[index],
-        // trimage: _allimage[index],
+        // trimage: _allimage[index] as File,
       ),
     );
     return allContact;
-  }
-
-  List<AllContact> get getAllHiddenContacts {
-    _allhiddenname = prefs.getStringList(_sfhiddenname) ?? [];
-    _allcontact = prefs.getStringList(_sfhiddencontact) ?? [];
-    // _allhiddenimage = prefs.getStringList(_sfhiddenimage) ?? [];
-
-    allhiddenContact = List.generate(
-      _allhiddencontact.length,
-      (index) => AllContact(
-        trname: _allhiddenname[index],
-        trcontact: _allhiddencontact[index],
-        tremail: _allhiddenemail[index],
-        // trimage: _allhiddenimage[index],
-      ),
-    );
-
-    return allhiddenContact;
   }
 
   void addContact(
@@ -76,12 +60,31 @@ class ListController extends ChangeNotifier {
     _allname.add(name);
     _allcontact.add(number);
     _allemail.add(email);
-    // _allimage.add(imagePath);
+    // _allimage.add(imageCache as String);
 
     prefs.setStringList(_sfname, _allname);
     prefs.setStringList(_sfcontact, _allcontact);
     prefs.setStringList(_sfemail, _allemail);
     // prefs.setStringList(_sfimage, _allimage);
+  }
+
+  List<AllContact> get getAllHiddenContacts {
+    _allhiddenname = prefs.getStringList(_sfhiddenname) ?? [];
+    _allhiddencontact = prefs.getStringList(_sfhiddencontact) ?? [];
+    _allhiddenemail = prefs.getStringList(_sfhiddenemail) ?? [];
+    // _allhiddenimage = prefs.getStringList(_sfhiddenimage) ?? [];
+
+    allhiddenContact = List.generate(
+      _allhiddencontact.length,
+      (index) => AllContact(
+        trname: _allhiddenname[index],
+        trcontact: _allhiddencontact[index],
+        tremail: _allhiddenemail[index],
+        // trimage: _allhiddenimage[index] as File,
+      ),
+    );
+
+    return allhiddenContact;
   }
 
   void addHiddenContact(

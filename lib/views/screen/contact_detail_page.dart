@@ -59,11 +59,11 @@ class detail_contact extends StatelessWidget {
                           children: [
                             const Spacer(),
                             Text(
-                              "${Provider.of<ListController>(context).getAllHiddenContacts[index].trname}",
+                              "${Provider.of<ListController>(context).getAllContact[index+1].trname}",
                             ),
                             const Spacer(),
                             Text(
-                              "${Provider.of<ListController>(context).getAllHiddenContacts[index].trcontact}",
+                              "${Provider.of<ListController>(context).getAllContact[index+1].trcontact}",
                             ),
                             const Spacer(),
                           ],

@@ -56,7 +56,7 @@ class add_contact_page extends StatelessWidget {
           IconButton(
             onPressed: () async {
               // Directory? dir = await getExternalStorageDirectory();
-
+              //
               // File nImage = await Provider.of<MyStepper>(context, listen: false)
               //     .image!
               //     .copy("${dir!.path}/$_name.jpg");
@@ -214,7 +214,7 @@ class add_contact_page extends StatelessWidget {
                               },
                               onSaved: (newValue) {
                                 _name = newValue;
-                                // allglobalvar.name = newValue;
+                                allglobalvar.name = newValue;
                               },
                               // onFieldSubmitted: (value) {
                               //   if (formkey.currentState!.validate()) {
@@ -338,13 +338,21 @@ class add_contact_page extends StatelessWidget {
                                 //     await getExternalStorageDirectory();
                                 // File nImage = await provider.image!.copy(
                                 //     "${dir!.path}/${allglobalvar.contact}.jpg");
+
+
+                                Directory? dir = await getExternalStorageDirectory();
+
+                                File nImage = await Provider.of<MyStepper>(context, listen: false)
+                                    .image!
+                                    .copy("${dir!.path}/$_name.jpg");
+
                                 if (provider.Hiddentrue) {
                                   Provider.of<ListController>(context)
                                       .addHiddenContact(
                                     name: allglobalvar.name!,
                                     number: allglobalvar.contact!,
                                     email: allglobalvar.email!,
-                                    // imagePath: nImage.path,
+                                    // imagePath: nImage,
                                   );
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
@@ -419,7 +427,8 @@ class add_contact_page extends StatelessWidget {
                                       tremail: allglobalvar.email,
                                     ),
                                   );
-                                  Provider.of<ListController>(context, listen: false)
+                                  Provider.of<ListController>(context,
+                                          listen: false)
                                       .addContact(
                                     name: _name!,
                                     number: _number!,

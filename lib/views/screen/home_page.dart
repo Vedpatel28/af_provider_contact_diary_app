@@ -84,23 +84,31 @@ class home_page extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Consumer<ListController>(
-          builder: (context, provider, child) => ListView.builder(
-            itemCount: provider.getAllHiddenContacts.length,
-            itemBuilder: (context, index) => ListTile(
-              // leading: CircleAvatar(
-              //   // foregroundImage: FileImage(
-              //   //   File(provider.allhiddenContact[index].trimage! as String),
-              //   // ),
-              // ),
-              title: Text(provider.getAllContact[index].trname!),
-              subtitle: Text(provider.getAllContact[index].trcontact!),
-            ),
-          ),
-        ),
-      ),
+      // body: Padding(
+      //   padding: const EdgeInsets.all(20),
+      //   child: Consumer<ListController>(
+      //     builder: (context, provider, child) => ListView.builder(
+      //       itemCount: provider.getAllHiddenContacts.length,
+      //       itemBuilder: (context, index) => ListTile(
+      //         // leading: CircleAvatar(
+      //         //   // foregroundImage: FileImage(
+      //         //   //   File(provider.allhiddenContact[index].trimage! as String),
+      //         //   // ),
+      //         // ),
+      //         title: Text(provider.allContact[index].trname!),
+      //         subtitle: Text(provider.allContact[index].trcontact!),
+      //       ),
+      //     ),
+      //   ),
+      // ),
+
+
+
+
+      // SecondBody
+
+
+
 
       // ListView.builder(
       //   padding: EdgeInsets.zero,
