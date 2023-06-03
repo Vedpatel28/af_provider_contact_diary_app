@@ -17,7 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SharedPreferences prefsob = await SharedPreferences.getInstance();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   runApp(
     MultiProvider(
@@ -29,10 +29,10 @@ void main() async {
           create: (context) => Themechanger(),
         ),
         ListenableProvider(
-          create: (context) => IntroProvider(prefsob: prefsob),
+          create: (context) => IntroProvider(prefsob: prefs),
         ),
         ListenableProvider(
-          create: (context) => ListController(prefs: prefsob),
+          create: (context) => ListController(prefs: prefs),
         ),
       ],
       // child: DevicePreview(

@@ -30,14 +30,6 @@ class ListController extends ChangeNotifier {
 
   ListController({required this.prefs});
 
-  List<String> get getTitles {
-    _allname = prefs.getStringList(_sfname) ?? [];
-    return _allname;
-  }
-
-
-
-
   List<AllContact> get getAllContact {
     _allname = prefs.getStringList(_sfname) ?? [];
     _allname = prefs.getStringList(_sfcontact) ?? [];

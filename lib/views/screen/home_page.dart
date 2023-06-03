@@ -49,7 +49,6 @@ class home_page extends StatelessWidget {
           PopupMenuButton(
             offset: const Offset(0, 50),
             onSelected: (val) async {
-
               if (val == allroutes.HiddenContactPage) {
                 LocalAuthentication auth = LocalAuthentication();
 
@@ -77,52 +76,71 @@ class home_page extends StatelessWidget {
                 value: allroutes.Detiail,
                 child: const Text("Show Contact Pag"),
               ),
+              PopupMenuItem(
+                value: allroutes.showpage,
+                child: const Text("___________----------__________"),
+              ),
             ],
           ),
         ],
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: Provider.of<ListController>(context).allContact.length,
-        itemBuilder: (context, index) => Scrollbar(
-          child: ListTile(
-            leading: CircleAvatar(
-              radius: 50,
-              foregroundImage:
-                  FileImage(File(Provider.of<ListController>(context).allhiddenContact[index].trimage as String),),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Consumer<ListController>(
+          builder: (context, provider, child) => ListView.builder(
+            itemCount: provider.getAllHiddenContacts.length,
+            itemBuilder: (context, index) => ListTile(
+              // leading: CircleAvatar(
+              //   // foregroundImage: FileImage(
+              //   //   File(provider.allhiddenContact[index].trimage! as String),
+              //   // ),
+              // ),
+              title: Text(provider.getAllContact[index].trname!),
+              subtitle: Text(provider.getAllContact[index].trcontact!),
             ),
-            onTap: () {
-              Navigator.of(context)
-                  .pushNamed(allroutes.Detiail, arguments: index);
-            },
-            // title: Text(
-            //   "${allglobalvar.ListOfContact[index].trname}",
-            // ),
-            title: Text(
-              "${Provider.of<ListController>(context).allhiddenContact[index].trname}",
-            ),
-            // subtitle: Text(
-            //   "+91 ${allglobalvar.ListOfContact[index].trcontact}",
-            // ),
-            subtitle: Text(
-              "+91 ${Provider.of<ListController>(context).allhiddenContact[index].trcontact}",
-            ),
-            // trailing: IconButton(
-            // onPressed: () {
-            //   Uri call = Uri(
-            //     scheme: 'tel',
-            //     path: allGlobalvar.allContact[index].Contact,
-            //   );
-            //   launchUrl(call);
-            // },
-            // icon: const Icon(
-            //   Icons.phone,
-            //   color: Colors.green,
-            // ),
-            // ),
           ),
         ),
       ),
+
+      // ListView.builder(
+      //   padding: EdgeInsets.zero,
+      //   itemCount: Provider.of<ListController>(context).allContact.length,
+      //   itemBuilder: (context, index) => Scrollbar(
+      //     child: ListTile(
+      //       onTap: () {
+      //         Navigator.of(context)
+      //             .pushNamed(allroutes.Detiail, arguments: index);
+      //       },
+      //       // title: Text(
+      //       //   "${allglobalvar.ListOfContact[index].trname}",
+      //       // ),
+      //       title: Text(
+      //         "${Provider.of<ListController>(context).allhiddenContact[index].trname}",
+      //       ),
+      //       // subtitle: Text(
+      //       //   "+91 ${allglobalvar.ListOfContact[index].trcontact}",
+      //       // ),
+      //       subtitle: Text(
+      //         "+91 ${Provider.of<ListController>(context).allhiddenContact[index].trcontact}",
+      //       ),
+      //
+      //       // trailing: IconButton(
+      //       // onPressed: () {
+      //       //   Uri call = Uri(
+      //       //     scheme: 'tel',
+      //       //     path: allGlobalvar.allContact[index].Contact,
+      //       //   );
+      //       //   launchUrl(call);
+      //       // },
+      //       // icon: const Icon(
+      //       //   Icons.phone,
+      //       //   color: Colors.green,
+      //       // ),
+      //       // ),
+      //     ),
+      //   ),
+      // ),
+
       // ListTile(
       //   leading: CircleAvatar(
       //     radius: 50,

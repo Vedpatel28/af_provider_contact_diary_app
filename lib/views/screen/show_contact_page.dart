@@ -95,7 +95,7 @@
 //   }
 // }
 
-
+import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:af_provider_contact_diary_app/views/components/all_back_button.dart';
@@ -108,8 +108,7 @@ class showpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    int indexa = ModalRoute.of(context)!.settings.arguments as int;
+    // int indexa = ModalRoute.of(context)!.settings.arguments as int;
     return Scaffold(
       appBar: AppBar(
         leading: const mybackbutton(),
@@ -121,7 +120,9 @@ class showpage extends StatelessWidget {
             },
             icon: Icon(
               size: 25,
-              Provider.of<Themechanger>(context).themechange ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+              Provider.of<Themechanger>(context).themechange
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined,
             ),
           ),
           const Icon(Icons.add, color: Colors.transparent),
@@ -144,14 +145,21 @@ class showpage extends StatelessWidget {
                   flex: 5,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(allroutes.Detiail, arguments: index);
+                      Navigator.of(context)
+                          .pushNamed(allroutes.Detiail, arguments: index);
                     },
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: FileImage(allglobalvar.ListOfContact[index].trimage!),
+                          image: NetworkImage(
+                            "https://icon-library.com/images/animated-icon-gif/animated-icon-gif-13.jpg",
+                          ),
                           fit: BoxFit.cover,
                         ),
+                        // image: DecorationImage(
+                        //   image: FileImage(allglobalvar.ListOfContact[index].trimage!),
+                        //   fit: BoxFit.cover,
+                        // ),
                       ),
                     ),
                   ),
@@ -168,13 +176,13 @@ class showpage extends StatelessWidget {
                           children: [
                             const Spacer(),
                             Text(
-                              "${allglobalvar.ListOfContact[index].trname}",
+                              "${Provider.of<ListController>(context).getAllContact[index].trname}",
                             ),
                             const Spacer(),
                           ],
                         ),
                         Text(
-                          "+91 ${allglobalvar.ListOfContact[index].trcontact}",
+                          "+91 ${Provider.of<ListController>(context).getAllContact[index].trcontact}",
                         ),
                       ],
                     ),

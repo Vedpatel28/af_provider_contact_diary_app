@@ -15,9 +15,7 @@ class detail_contact extends StatelessWidget {
         title: const Text("Contact Detail"),
       ),
       body: Center(
-        child:
-
-        Padding(
+        child: Padding(
           padding: const EdgeInsets.all(20),
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -31,21 +29,22 @@ class detail_contact extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 5,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(allroutes.Detiail, arguments: index);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.blueAccent,
                         image: DecorationImage(
-                          image: FileImage(Provider.of<ListController>(context)
-                              .allContact[index]
-                              .trimage!),
+                          image: NetworkImage(
+                            "https://icon-library.com/images/animated-icon-gif/animated-icon-gif-13.jpg",
+                          ),
                           fit: BoxFit.cover,
+                        )
+                        // image: DecorationImage(
+                        //   image: FileImage(Provider.of<ListController>(context)
+                        //       .getAllHiddenContacts[index]
+                        //       .trimage!),
+                        //   fit: BoxFit.cover,
+                        // ),
                         ),
-                      ),
-                    ),
                   ),
                 ),
                 Expanded(
@@ -60,14 +59,19 @@ class detail_contact extends StatelessWidget {
                           children: [
                             const Spacer(),
                             Text(
-                              "${Provider.of<ListController>(context).allContact[index].trname}",
+                              "${Provider.of<ListController>(context).getAllHiddenContacts[index].trname}",
+                            ),
+                            const Spacer(),
+                            Text(
+                              "${Provider.of<ListController>(context).getAllHiddenContacts[index].trcontact}",
                             ),
                             const Spacer(),
                           ],
                         ),
-                        Text(
-                          "+91 ${Provider.of<ListController>(context).allContact[index].trcontact}",
-                        ),
+                        // Text(
+                        //   "+91 "
+                        //   "${Provider.of<ListController>(context).getAllHiddenContacts[index].trcontact}",
+                        // ),
                       ],
                     ),
                   ),

@@ -108,7 +108,7 @@ class add_contact_page extends StatelessWidget {
                 );
               }
               Navigator.of(context).pop();
-              // Navigator.of(context).pushNamed(allroutes.showpage);
+              Navigator.of(context).pushNamed(allroutes.homepage);
             },
             icon: const Icon(Icons.check),
           ),
@@ -214,7 +214,7 @@ class add_contact_page extends StatelessWidget {
                               },
                               onSaved: (newValue) {
                                 _name = newValue;
-                                allglobalvar.name = newValue;
+                                // allglobalvar.name = newValue;
                               },
                               // onFieldSubmitted: (value) {
                               //   if (formkey.currentState!.validate()) {
@@ -413,14 +413,13 @@ class add_contact_page extends StatelessWidget {
                                   formkey.currentState!.save();
                                   allglobalvar.ListOfContact.add(
                                     AllContact(
-                                      trname: _name,
-                                      trcontact: _number,
+                                      trname: allglobalvar.name,
+                                      trcontact: allglobalvar.contact,
                                       trimage: allglobalvar.image,
-                                      tremail: _email,
+                                      tremail: allglobalvar.email,
                                     ),
                                   );
-                                  Provider.of<ListController>(context,
-                                          listen: false)
+                                  Provider.of<ListController>(context, listen: false)
                                       .addContact(
                                     name: _name!,
                                     number: _number!,
