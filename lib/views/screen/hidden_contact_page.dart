@@ -1,7 +1,6 @@
-import 'dart:io';
 
 import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
-import 'package:af_provider_contact_diary_app/views/modals/global_varibles.dart';
+import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,6 +15,19 @@ class hidden_contact_page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Hidden Contact"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Provider.of<Themechanger>(context, listen: false).changetheme();
+            },
+            icon: Icon(
+              size: 25,
+              Provider.of<Themechanger>(context).themechange
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

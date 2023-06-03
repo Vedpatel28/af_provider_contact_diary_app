@@ -1,9 +1,6 @@
-import 'dart:io';
 
-import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
-import 'package:af_provider_contact_diary_app/views/modals/global_varibles.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
@@ -76,14 +73,41 @@ class home_page extends StatelessWidget {
                 value: allroutes.Detiail,
                 child: const Text("Show Contact Pag"),
               ),
-              PopupMenuItem(
-                value: allroutes.showpage,
-                child: const Text("___________----------__________"),
-              ),
             ],
           ),
         ],
       ),
+
+      // body: Padding(
+      //   padding: const EdgeInsets.all(20),
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.center,
+      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //     children: [
+      //       ElevatedButton(
+      //         onPressed: () {
+      //           Navigator.of(context).pushNamed(allroutes.AddContactPage);
+      //         },
+      //         child: const Text("Add Contact "),
+      //       ),
+      //       ElevatedButton(
+      //         onPressed: () {
+      //           Navigator.of(context).pushNamed(allroutes.Detiail);
+      //         },
+      //         child: const Text("Show Contact"),
+      //       ),
+      //       ElevatedButton(
+      //         onPressed: () {
+      //           Navigator.of(context).pushNamed(allroutes.Detiail);
+      //         },
+      //         child: const Text("Detail Contact "),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+
+
+
       // body: Padding(
       //   padding: const EdgeInsets.all(20),
       //   child: Consumer<ListController>(
@@ -102,13 +126,7 @@ class home_page extends StatelessWidget {
       //   ),
       // ),
 
-
-
-
       // SecondBody
-
-
-
 
       // ListView.builder(
       //   padding: EdgeInsets.zero,

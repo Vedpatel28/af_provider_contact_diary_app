@@ -1,8 +1,9 @@
 import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
-import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
+import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:af_provider_contact_diary_app/views/modals/global_varibles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: camel_case_types
 class detail_contact extends StatelessWidget {
@@ -13,6 +14,19 @@ class detail_contact extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Contact Detail"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Provider.of<Themechanger>(context, listen: false).changetheme();
+            },
+            icon: Icon(
+              size: 25,
+              Provider.of<Themechanger>(context).themechange
+                  ? Icons.light_mode_outlined
+                  : Icons.dark_mode_outlined,
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Padding(
@@ -59,14 +73,36 @@ class detail_contact extends StatelessWidget {
                           children: [
                             const Spacer(),
                             Text(
-                              "${Provider.of<ListController>(context).getAllContact[index+1].trname}",
+                              "${Provider.of<ListController>(context).getAllContact[index + 1].trname}",
                             ),
                             const Spacer(),
                             Text(
-                              "${Provider.of<ListController>(context).getAllContact[index+1].trcontact}",
+                              "${Provider.of<ListController>(context).getAllContact[index + 1].trcontact}",
                             ),
                             const Spacer(),
                           ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 30,
+                            child: IconButton(
+                              onPressed: () {
+                                Uri call = Uri(
+                                  scheme: 'tel',
+                                  path: Provider.of<ListController>(context)
+                                      .getAllContact[index + 1]
+                                      .trcontact,
+                                );
+                                launchUrl(call);
+                              },
+                              icon: const Icon(
+                                Icons.phone,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ),
                         ),
                         // Text(
                         //   "+91 "
