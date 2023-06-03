@@ -75,8 +75,7 @@ class intro_page extends StatelessWidget {
                 outerColor: Colors.blue,
 
                 onSubmit: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed(allroutes.homepage);
+                  Navigator.of(context).pushReplacementNamed(allroutes.homepage);
                 },
               ),
             ),

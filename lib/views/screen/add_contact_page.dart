@@ -60,7 +60,6 @@ class add_contact_page extends StatelessWidget {
               // File nImage = await Provider.of<MyStepper>(context, listen: false)
               //     .image!
               //     .copy("${dir!.path}/$_name.jpg");
-
               if (Provider.of<MyStepper>(context, listen: false).Hiddentrue) {
                 Provider.of<ListController>(context, listen: false)
                     .addHiddenContact(

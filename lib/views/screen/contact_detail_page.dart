@@ -77,7 +77,6 @@ class detail_contact extends StatelessWidget {
           ),
         ),
       ),
-
       // Padding(
       //   padding: const EdgeInsets.all(20),
       //   child: Container(

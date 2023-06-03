@@ -25,7 +25,7 @@ class hidden_contact_page extends StatelessWidget {
             itemBuilder: (context, index) => ListTile(
               leading: CircleAvatar(
                 foregroundImage: FileImage(
-                  File(provider.allhiddenContact[index].trimage as String),
+                  File(provider.allhiddenContact[index].trimage! as String),
                 ),
               ),
               title: Text(provider.allhiddenContact[index].trname!),
