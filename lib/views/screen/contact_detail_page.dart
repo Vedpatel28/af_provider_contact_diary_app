@@ -21,7 +21,9 @@ class detail_contact extends StatelessWidget {
             },
             icon: Icon(
               size: 25,
-              Provider.of<Themechanger>(context).themechange
+              Provider
+                  .of<Themechanger>(context)
+                  .themechange
                   ? Icons.light_mode_outlined
                   : Icons.dark_mode_outlined,
             ),
@@ -39,81 +41,87 @@ class detail_contact extends StatelessWidget {
               crossAxisCount: 2,
             ),
             itemCount: allglobalvar.ListOfContact.length,
-            itemBuilder: (context, index) => Column(
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.blueAccent,
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            "https://icon-library.com/images/animated-icon-gif/animated-icon-gif-13.jpg",
-                          ),
-                          fit: BoxFit.cover,
-                        )
-                        // image: DecorationImage(
-                        //   image: FileImage(Provider.of<ListController>(context)
-                        //       .getAllHiddenContacts[index]
-                        //       .trimage!),
-                        //   fit: BoxFit.cover,
-                        // ),
+            itemBuilder: (context, index) =>
+                Column(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.blueAccent,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                "https://icon-library.com/images/animated-icon-gif/animated-icon-gif-13.jpg",
+                              ),
+                              fit: BoxFit.cover,
+                            )
+                          // image: DecorationImage(
+                          //   image: FileImage(Provider.of<ListController>(context)
+                          //       .getAllHiddenContacts[index]
+                          //       .trimage!),
+                          //   fit: BoxFit.cover,
+                          // ),
                         ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Column(
                           children: [
-                            const Spacer(),
-                            Text(
-                              "${Provider.of<ListController>(context).getAllContact[index + 1].trname}",
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Spacer(),
+                                Text(
+                                  "${Provider
+                                      .of<ListController>(context)
+                                      .getAllContact[index].trname}",
+                                ),
+                                const Spacer(),
+                                Text(
+                                  "${Provider
+                                      .of<ListController>(context)
+                                      .getAllContact[index].trcontact}",
+                                ),
+                                const Spacer(),
+                              ],
                             ),
-                            const Spacer(),
-                            Text(
-                              "${Provider.of<ListController>(context).getAllContact[index + 1].trcontact}",
-                            ),
-                            const Spacer(),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 30,
-                            child: IconButton(
-                              onPressed: () {
-                                Uri call = Uri(
-                                  scheme: 'tel',
-                                  path: Provider.of<ListController>(context)
-                                      .getAllContact[index + 1]
-                                      .trcontact,
-                                );
-                                launchUrl(call);
-                              },
-                              icon: const Icon(
-                                Icons.phone,
-                                color: Colors.green,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: double.infinity,
+                                height: 30,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Uri call = Uri(
+                                      scheme: 'tel',
+                                      path: Provider
+                                          .of<ListController>(context)
+                                          .getAllContact[index]
+                                          .trcontact,
+                                    );
+                                    launchUrl(call);
+                                  },
+                                  icon: const Icon(
+                                    Icons.phone,
+                                    color: Colors.green,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            // Text(
+                            //   "+91 "
+                            //   "${Provider.of<ListController>(context).getAllHiddenContacts[index].trcontact}",
+                            // ),
+                          ],
                         ),
-                        // Text(
-                        //   "+91 "
-                        //   "${Provider.of<ListController>(context).getAllHiddenContacts[index].trcontact}",
-                        // ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
           ),
         ),
       ),
