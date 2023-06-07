@@ -1,6 +1,6 @@
-
 import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
+import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,39 +34,45 @@ class hidden_contact_page extends StatelessWidget {
         child: Consumer<ListController>(
           builder: (context, provider, child) => ListView.builder(
             itemCount: provider.getAllHiddenContacts.length,
-            itemBuilder: (context, index) => ListTile(
-              leading: Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(200),
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                      "https://miro.medium.com/v2/resize:fit:1400/1*zHtmoxeiEJ7btMX6CDgECg.gif",
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(allroutes.Detiail, arguments: index);
+              },
+              child: ListTile(
+                leading: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(200),
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                        "https://miro.medium.com/v2/resize:fit:1400/1*zHtmoxeiEJ7btMX6CDgECg.gif",
+                      ),
+                      // scale: 0,
+                      fit: BoxFit.cover,
                     ),
-                     // scale: 0,
-                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-              // leading: CircleAvatar(
-              //   foregroundImage: FileImage(
-              //     File(provider.allhiddenContact[index].trimage! as String),
-              //   ),
-              // ),
-              title: Text(provider.getAllHiddenContacts[index].trname!),
-              subtitle: Text(provider.getAllHiddenContacts[index].trcontact!),
-              trailing: IconButton(
-                onPressed: () {
-                  Uri call = Uri(
-                    scheme: 'tel',
-                    path: provider.getAllHiddenContacts[index].trcontact,
-                  );
-                  launchUrl(call);
-                },
-                icon: const Icon(
-                  Icons.phone,
-                  color: Colors.green,
+                // leading: CircleAvatar(
+                //   foregroundImage: FileImage(
+                //     File(provider.allhiddenContact[index].trimage! as String),
+                //   ),
+                // ),
+                title: Text(provider.getAllHiddenContacts[index].trname!),
+                subtitle: Text(provider.getAllHiddenContacts[index].trcontact!),
+                trailing: IconButton(
+                  onPressed: () {
+                    Uri call = Uri(
+                      scheme: 'tel',
+                      path: provider.getAllHiddenContacts[index].trcontact,
+                    );
+                    launchUrl(call);
+                  },
+                  icon: const Icon(
+                    Icons.phone,
+                    color: Colors.green,
+                  ),
                 ),
               ),
             ),
