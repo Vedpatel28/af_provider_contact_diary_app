@@ -1,9 +1,10 @@
-
+import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
 import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class home_page extends StatelessWidget {
   const home_page({Key? key}) : super(key: key);
@@ -12,26 +13,14 @@ class home_page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const Icon(
+          Icons.arrow_back_ios,
+          color: Colors.transparent,
+        ),
         title: const Text(
           "Home Page",
         ),
         actions: [
-          // onLongPress: () async {
-          //   print("Long Pressed.....");
-          //   LocalAuthentication auth = LocalAuthentication();
-          //
-          //   bool done = await auth.authenticate(
-          //     localizedReason: "Open to access hidden contacts !!",
-          //   );
-          //
-          //   if (done) {
-          //     // ignore: use_build_context_synchronously
-          //     Navigator.of(context).pushNamed(allroutes.HiddenContactPage);
-          //   }
-          // },
-          // onTap: () {
-          //   Provider.of<Themechanger>(context, listen: false).themechange;
-          // },
           IconButton(
             onPressed: () {
               Provider.of<Themechanger>(context, listen: false).changetheme();
@@ -77,132 +66,57 @@ class home_page extends StatelessWidget {
           ),
         ],
       ),
-
-      // body: Padding(
-      //   padding: const EdgeInsets.all(20),
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.center,
-      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //     children: [
-      //       ElevatedButton(
-      //         onPressed: () {
-      //           Navigator.of(context).pushNamed(allroutes.AddContactPage);
-      //         },
-      //         child: const Text("Add Contact "),
-      //       ),
-      //       ElevatedButton(
-      //         onPressed: () {
-      //           Navigator.of(context).pushNamed(allroutes.Detiail);
-      //         },
-      //         child: const Text("Show Contact"),
-      //       ),
-      //       ElevatedButton(
-      //         onPressed: () {
-      //           Navigator.of(context).pushNamed(allroutes.Detiail);
-      //         },
-      //         child: const Text("Detail Contact "),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-
-
-
-      // body: Padding(
-      //   padding: const EdgeInsets.all(20),
-      //   child: Consumer<ListController>(
-      //     builder: (context, provider, child) => ListView.builder(
-      //       itemCount: provider.getAllHiddenContacts.length,
-      //       itemBuilder: (context, index) => ListTile(
-      //         // leading: CircleAvatar(
-      //         //   // foregroundImage: FileImage(
-      //         //   //   File(provider.allhiddenContact[index].trimage! as String),
-      //         //   // ),
-      //         // ),
-      //         title: Text(provider.allContact[index].trname!),
-      //         subtitle: Text(provider.allContact[index].trcontact!),
-      //       ),
-      //     ),
-      //   ),
-      // ),
-
-      // SecondBody
-
-      // ListView.builder(
-      //   padding: EdgeInsets.zero,
-      //   itemCount: Provider.of<ListController>(context).allContact.length,
-      //   itemBuilder: (context, index) => Scrollbar(
-      //     child: ListTile(
-      //       onTap: () {
-      //         Navigator.of(context)
-      //             .pushNamed(allroutes.Detiail, arguments: index);
-      //       },
-      //       // title: Text(
-      //       //   "${allglobalvar.ListOfContact[index].trname}",
-      //       // ),
-      //       title: Text(
-      //         "${Provider.of<ListController>(context).allhiddenContact[index].trname}",
-      //       ),
-      //       // subtitle: Text(
-      //       //   "+91 ${allglobalvar.ListOfContact[index].trcontact}",
-      //       // ),
-      //       subtitle: Text(
-      //         "+91 ${Provider.of<ListController>(context).allhiddenContact[index].trcontact}",
-      //       ),
-      //
-      //       // trailing: IconButton(
-      //       // onPressed: () {
-      //       //   Uri call = Uri(
-      //       //     scheme: 'tel',
-      //       //     path: allGlobalvar.allContact[index].Contact,
-      //       //   );
-      //       //   launchUrl(call);
-      //       // },
-      //       // icon: const Icon(
-      //       //   Icons.phone,
-      //       //   color: Colors.green,
-      //       // ),
-      //       // ),
-      //     ),
-      //   ),
-      // ),
-
-      // ListTile(
-      //   leading: CircleAvatar(
-      //     radius: 50,
-      //     foregroundImage: FileImage(Provider.of<ListController>(context)
-      //         .allContact[index]
-      //         .trimage!),
-      //   ),
-      //   onTap: () {
-      //     Navigator.of(context)
-      //         .pushNamed(allroutes.Detiail, arguments: index);
-      //   },
-      //   title: Text(
-      //     "${Provider.of<ListController>(context).allContact[index].trname}",
-      //   ),
-      //   subtitle: Text(
-      //     "+91 ${Provider.of<ListController>(context).allContact[index].trcontact}",
-      //   ),
-      //   // trailing: IconButton(
-      //   // onPressed: () {
-      //   //   Uri call = Uri(
-      //   //     scheme: 'tel',
-      //   //     path: allGlobalvar.allContact[index].Contact,
-      //   //   );
-      //   //   launchUrl(call);
-      //   // },
-      //   // icon: const Icon(
-      //   //   Icons.phone,
-      //   //   color: Colors.green,
-      //   // ),
-      // ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Consumer<ListController>(
+          builder: (context, provider, child) => ListView.builder(
+            itemCount: provider.getAllContact.length,
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(allroutes.Detiail, arguments: index);
+              },
+              child: ListTile(
+                leading: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(200),
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                        "https://miro.medium.com/v2/resize:fit:1400/1*zHtmoxeiEJ7btMX6CDgECg.gif",
+                      ),
+                      // scale: 0,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                title: Text(provider.getAllContact[index].trname!),
+                subtitle: Text(provider.getAllContact[index].trcontact!),
+                trailing: IconButton(
+                  onPressed: () {
+                    Uri call = Uri(
+                      scheme: 'tel',
+                      path: provider.getAllContact[index].trcontact,
+                    );
+                    launchUrl(call);
+                  },
+                  icon: const Icon(
+                    Icons.phone,
+                    color: Colors.green,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).pushNamed(allroutes.AddContactPage);
         },
         child: const Icon(
-          Icons.navigate_next_rounded,
+          Icons.add,
         ),
       ),
     );
