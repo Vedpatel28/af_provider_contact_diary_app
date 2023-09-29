@@ -5,7 +5,6 @@ import 'package:af_provider_contact_diary_app/controllers/theme_changer_controll
 import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:af_provider_contact_diary_app/views/screen/add_contact_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/contact_detail_page.dart';
-import 'package:af_provider_contact_diary_app/views/screen/edit_contact_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/hidden_contact_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/home_page.dart';
 import 'package:af_provider_contact_diary_app/views/screen/intro_page.dart';
@@ -109,7 +108,6 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         ),
       ),
-
       themeMode: Provider.of<Themechanger>(context).getTheme
           ? ThemeMode.dark
           : ThemeMode.light,
@@ -122,7 +120,7 @@ class MyApp extends StatelessWidget {
         allroutes.AddContactPage: (context) => add_contact_page(),
         // allroutes.showpage: (context) => const showpage(),
         allroutes.Detiail: (context) => const detail_contact(),
-        allroutes.EditPage: (context) => const edit_contact_page(),
+        // allroutes.EditPage: (context) => const edit_contact_page(),
         allroutes.IntroPage: (context) => const intro_page(),
         allroutes.HiddenContactPage: (context) => const hidden_contact_page(),
       },
