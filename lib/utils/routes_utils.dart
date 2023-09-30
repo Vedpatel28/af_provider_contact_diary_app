@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 class allroutes {
   static String homepage = '/';
   static String AddContactPage = 'addcontactpage';
