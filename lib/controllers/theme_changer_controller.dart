@@ -1,4 +1,5 @@
-import 'package:easy_stepper/easy_stepper.dart';
+import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Themechanger extends ChangeNotifier {
