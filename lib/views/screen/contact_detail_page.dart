@@ -1,6 +1,6 @@
 import 'package:af_provider_contact_diary_app/controllers/list_preferences_controller.dart';
+import 'package:af_provider_contact_diary_app/controllers/stepper_controller.dart';
 import 'package:af_provider_contact_diary_app/controllers/theme_changer_controller.dart';
-import 'package:af_provider_contact_diary_app/utils/routes_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,53 +36,50 @@ class detail_contact extends StatelessWidget {
           builder: (context, pro, widget) => Column(
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SizedBox(width: s.width * 0.2, height: s.height * 0.2),
-                  // CircleAvatar(
-                  //   radius: 60,
-                  //   foregroundImage: FileImage(.allContact[index].image!),
-                  // ),
-                  // SizedBox(width: s.width * 0.1),
                   IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      pro.removeHiddenItem(index: index);
+                      pro.removeItem(index: index);
+                      if (Provider.of<MyStepper>(context, listen: false)
+                              .Hiddentrue ==
+                          true) {
+                        pro.removeHiddenItem(
+                          index: index,
+                        );
+                      }
                     },
                     icon: Icon(
                       Icons.delete,
                       size: s.height * 0.03,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed(allroutes.EditPage, arguments: index);
-                    },
-                    icon: Icon(
-                      Icons.edit,
-                      size: s.height * 0.028,
-                    ),
-                  ),
                 ],
               ),
-              SizedBox(height: s.height * 0.05),
               Text(
-                "${pro.getAllHiddenContacts[index].trname} ${pro.getAllHiddenContacts[index].tremail}",
+                " ${pro.getAllContact[index].trname}",
                 style: TextStyle(
                   wordSpacing: 2,
                   fontSize: s.height * 0.04,
                 ),
               ),
+              Text(
+                "  ${pro.getAllContact[index].tremail}",
+                style: TextStyle(
+                  wordSpacing: 1,
+                  fontSize: s.height * 0.03,
+                ),
+              ),
               SizedBox(height: s.height * 0.01),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(width: s.width * 0.05),
                   Text(
-                    "+91 ${pro.getAllHiddenContacts[index].trcontact}",
+                    "Contacts: ${pro.getAllContact[index].trcontact}",
                     style: TextStyle(
-                      fontSize: s.height * 0.028,
+                      fontSize: s.height * 0.02,
                     ),
                   ),
                 ],
@@ -101,7 +98,7 @@ class detail_contact extends StatelessWidget {
                     onTap: () {
                       Uri call = Uri(
                         scheme: 'tel',
-                        path: pro.getAllHiddenContacts[index].trcontact,
+                        path: pro.getAllContact[index].trcontact,
                       );
                       launchUrl(call);
                     },
@@ -115,7 +112,7 @@ class detail_contact extends StatelessWidget {
                     onTap: () {
                       Uri sms = Uri(
                         scheme: 'sms',
-                        path: pro.getAllHiddenContacts[index].trcontact,
+                        path: pro.getAllContact[index].trcontact,
                       );
                       launchUrl(sms);
                     },
@@ -130,8 +127,8 @@ class detail_contact extends StatelessWidget {
                       Uri mail = Uri(
                         scheme: 'mailto',
                         query:
-                            "subject=Contact us=Dear ${pro.getAllHiddenContacts[index].trname}",
-                        path: pro.getAllHiddenContacts[index].tremail,
+                            "subject=Contact us=Dear ${pro.getAllContact[index].trname}",
+                        path: pro.getAllContact[index].tremail,
                       );
                       launchUrl(mail);
                     },
@@ -140,17 +137,6 @@ class detail_contact extends StatelessWidget {
                       radius: s.height * 0.03,
                       child:
                           const Icon(Icons.email_rounded, color: Colors.white),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // Share.share(
-                      //     "${pro.getAllHiddenContacts[index].trname} ${pro.getAllHiddenContacts[index].tremail} \n ${pro.getAllHiddenContacts[index].trcontact}");
-                    },
-                    child: CircleAvatar(
-                      backgroundColor: Colors.orange,
-                      radius: s.height * 0.03,
-                      child: const Icon(Icons.share, color: Colors.white),
                     ),
                   ),
                 ],
