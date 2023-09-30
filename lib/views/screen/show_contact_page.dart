@@ -5,6 +5,7 @@ import 'package:af_provider_contact_diary_app/views/components/all_back_button.d
 import 'package:af_provider_contact_diary_app/views/modals/global_varibles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class showpage extends StatelessWidget {
   const showpage({Key? key}) : super(key: key);
@@ -31,67 +32,47 @@ class showpage extends StatelessWidget {
           const Icon(Icons.add, color: Colors.transparent),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-              childAspectRatio: 2 / 4,
-              crossAxisCount: 2,
-            ),
-            itemCount: allglobalvar.ListOfContact.length,
-            itemBuilder: (context, index) => Column(
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(allroutes.Detiail, arguments: index);
-                    },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            "https://icon-library.com/images/animated-icon-gif/animated-icon-gif-13.jpg",
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                        // image: DecorationImage(
-                        //   image: FileImage(allglobalvar.ListOfContact[index].trimage!),
-                        //   fit: BoxFit.cover,
-                        // ),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Consumer<ListController>(
+          builder: (context, provider, child) => ListView.builder(
+            itemCount: provider.getAllContact.length,
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(allroutes.Detiail, arguments: index);
+              },
+              child: ListTile(
+                leading: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(200),
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                        "https://miro.medium.com/v2/resize:fit:1400/1*zHtmoxeiEJ7btMX6CDgECg.gif",
                       ),
+                      // scale: 0,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Spacer(),
-                            Text(
-                              "${Provider.of<ListController>(context).getAllContact[index].trname}",
-                            ),
-                            const Spacer(),
-                          ],
-                        ),
-                        Text(
-                          "+91 ${Provider.of<ListController>(context).getAllContact[index].trcontact}",
-                        ),
-                      ],
-                    ),
+                title: Text(provider.getAllContact[index].trname!),
+                subtitle: Text(provider.getAllContact[index].trcontact!),
+                trailing: IconButton(
+                  onPressed: () {
+                    Uri call = Uri(
+                      scheme: 'tel',
+                      path: provider.getAllContact[index].trcontact,
+                    );
+                    launchUrl(call);
+                  },
+                  icon: const Icon(
+                    Icons.phone,
+                    color: Colors.green,
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         ),
